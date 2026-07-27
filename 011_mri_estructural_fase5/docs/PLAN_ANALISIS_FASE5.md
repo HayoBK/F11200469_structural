@@ -1,8 +1,31 @@
 # PLAN DE ANÁLISIS — FASE 5
-### FONDECYT 11200469 · MRI estructural en MPPP/PPPD · versión 1.0 · 2026-07-27
+### FONDECYT 11200469 · MRI estructural en MPPP/PPPD · versión 1.1 · 2026-07-27
 
-> **Estado: BORRADOR EN ESPERA DE APROBACIÓN DEL PI.**
-> No se ha ejecutado ningún modelo. Nada de lo que sigue toca los datos hasta el OK.
+> **Estado: decisiones del PI tomadas (§7). Infraestructura de código en construcción.**
+> **Aún no se ha ejecutado ningún modelo sobre los datos reales.**
+
+## DECISIONES DEL PI — 2026-07-27 (cierran §7)
+
+| # | Decisión | Resuelto |
+|---|---|---|
+| **D1** | Lateralidad | **Fuera del modelo principal**; entra en robustez R4/R5. La imputación "diestro" se conserva y se declara en Methods. |
+| **D2** | Agregación de labels múltiples | Ponderada por área (grosor, LGI) / suma (volumen, área). *Recomendación aceptada.* |
+| **D3** | precentral/postcentral | **Dos ROIs separadas.** *Recomendación aceptada.* |
+| **D4** | Subcampos hipocampales | **Eje posterior completo** (body+tail, 9×2=18), FDR propio. *Recomendación aceptada.* |
+| **D5** | Ansiedad/depresión | **Dos análisis completos en paralelo** — ver nota abajo. |
+| **D6** | Volumen cortical + subcortical | **Misma familia FDR.** *Recomendación aceptada.* |
+| **D7** | Análisis mayores | **C1, C2, C3 y C4 activados.** C5/C6/C7 descartados. |
+
+> **Nota sobre D5 (mejora sobre la v1.0).** El PI pidió el esquema habitual en la literatura: *un
+> análisis sin ajustar por ansiedad y otro ajustando*, presentados en paralelo. Esto es **superior** a
+> lo que proponía la v1.0 (re-testear solo las ROIs supervivientes), porque re-testear únicamente a
+> los supervivientes **arrastra sesgo de selección**: condiciona el segundo análisis al resultado del
+> primero. **Implementación adoptada:**
+> - **Modelo A (principal, N=46):** sin STAI-R/BDI.
+> - **Modelo B (paralelo, N≈34):** idéntico + STAI-Rasgo + BDI.
+> - Ambos se corren sobre la **familia completa**, cada uno con **su propio FDR**, y se reportan en
+>   **columnas contiguas** de la misma tabla. La lectura interesante es la comparación de los tamaños
+>   de efecto entre A y B, no solo la de los p.
 
 ---
 
