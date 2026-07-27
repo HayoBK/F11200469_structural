@@ -1,0 +1,163 @@
+# ════════════════════════════════════════════════════════════════════════════
+#  .gitignore ESTRICTO — FONDECYT 11200469
+#  Este proyecto maneja datos clínicos con PII. Regla: a GitHub va SOLO código,
+#  notebooks sin outputs de datos, y documentos. TODO dato queda fuera.
+#  Filosofía: denegar por extensión primero, permitir excepciones nombradas.
+# ════════════════════════════════════════════════════════════════════════════
+
+# ─── 1. DATOS TABULARES (cualquier formato, cualquier carpeta) ──────────────
+*.csv
+*.tsv
+*.txt
+*.xlsx
+*.xls
+*.xlsm
+*.ods
+*.sav
+*.dta
+*.parquet
+*.feather
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.json
+*.db
+*.sqlite
+*.sqlite3
+*.rds
+*.RData
+
+# ─── 2. NEUROIMAGEN (crudo, derivados y salidas FreeSurfer) ────────────────
+*.nii
+*.nii.gz
+*.mgz
+*.mgh
+*.dcm
+*.ima
+*.IMA
+*.img
+*.hdr
+*.brik
+*.head
+*.gii
+*.annot
+*.label
+*.stats
+*.curv
+*.thickness
+*.sulc
+*.pial
+*.white
+*.inflated
+*.sphere
+*.orig
+*.area
+*.volume
+*.m3z
+*.lta
+*.xfm
+*.dat
+*.mgh.gz
+
+# Directorios completos de FreeSurfer / datos crudos
+subjects/
+SUBJECTS_DIR/
+fsaverage/
+bem/
+mri/
+surf/
+scripts/recon-all*
+touch/
+trash/
+tmp/
+label/
+stats/
+
+# ─── 3. CARPETAS DE DATOS (por nombre, en cualquier nivel) ─────────────────
+data/
+Data/
+DATA/
+datos/
+Datos/
+tablas/
+tabla_maestra/
+raw/
+crudo/
+derivatives/
+sourcedata/
+bids/
+qc/
+logs/
+private/
+privado/
+PII/
+
+# ─── 4. IMÁGENES (salvo figuras agregadas del paper — ver excepciones §7) ──
+*.png
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+*.bmp
+*.gif
+*.dicom
+
+# ─── 5. DOCUMENTOS QUE PUEDEN CONTENER DATOS DE PACIENTES ──────────────────
+*.docx
+*.doc
+*.pptx
+*.ppt
+
+# ─── 6. NOTEBOOKS: los .ipynb SÍ se versionan, pero sin outputs ────────────
+# (limpiar con `nbstripout` antes de commitear — ver README §Higiene)
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# ─── 7. EXCEPCIONES: lo que SÍ se versiona ─────────────────────────────────
+# Figuras agregadas del paper (sin datos identificables) y resultados agregados.
+!011_mri_estructural_fase5/figs/**/*.png
+!011_mri_estructural_fase5/figs/**/*.pdf
+!011_mri_estructural_fase5/figs/**/*.svg
+# Tablas de RESULTADOS agregados (estadísticos por ROI, nunca filas por sujeto).
+# Se habilitan una por una y de forma explícita, nunca con comodín:
+!011_mri_estructural_fase5/results/**/*_resultados_*.csv
+!011_mri_estructural_fase5/results/**/*_efectos_*.csv
+# Entorno y configuración
+!requirements.txt
+!**/requirements.txt
+
+# ─── 8. PYTHON / ENTORNO ───────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+.env
+.env.*
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ─── 9. SISTEMA / EDITOR ───────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.~lock.*
+*.tmp

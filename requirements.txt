@@ -1,0 +1,35 @@
+# Entorno FASE 5 — FONDECYT 11200469 · MRI estructural
+# Python 3.12.13 · gestionado con uv · venv en ~/FS_FONDECYT/.venv (fuera del repo)
+# Reproducir:  uv pip install -r requirements.txt
+
+# --- núcleo de datos ---
+numpy==2.5.1
+pandas==3.0.3
+scipy==1.18.0
+
+# --- estadística ---
+statsmodels==0.14.6
+patsy==1.0.2
+pingouin==0.6.1
+scikit-learn==1.8.0
+
+# --- figuras ---
+matplotlib==3.11.1
+seaborn==0.13.2
+
+# --- neuroimagen ---
+nibabel==5.4.2
+nilearn==0.14.0
+
+# --- notebooks ---
+jupyterlab==4.6.2
+ipykernel==7.3.0
+
+# --- utilidades ---
+openpyxl==3.1.5
+tqdm==4.69.0
+
+# --- PENDIENTE de instalar (PASO 3b: figuras de superficie) ---
+# surfplot==0.2.0     # mapas corticales publicables sobre fsaverage
+# brainspace==0.1.20  # dependencia de surfplot
+# nbstripout          # higiene de notebooks antes de commitear
