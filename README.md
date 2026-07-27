@@ -8,7 +8,10 @@ Análisis de **MRI estructural** del proyecto **FONDECYT de Iniciación 11200469
 
 ## ⚠️ REGLA DE PRIVACIDAD (leer antes de commitear)
 
-Este proyecto trabaja con **datos clínicos de pacientes reales**.
+Este proyecto trabaja con **datos clínicos de pacientes reales**, y
+**este repositorio es PÚBLICO** (decisión del PI, 2026-07-27, en favor de la
+reproducibilidad del paper). Todo commit es irreversible y mundialmente visible:
+un dato subido por error queda en el historial de git aunque se borre después.
 
 **A este repositorio va SOLO:** código, notebooks (sin outputs con datos), figuras agregadas
 y documentos metodológicos.
