@@ -37,6 +37,10 @@ Una fila por prueba estadística. Todas versionadas en GitHub (son agregados, si
 | `etapaAD_resultados_dirigido.csv` | 136 pruebas × 2 modelos, **contraste dirigido MPPP vs Vestibular**. |
 | `etapaC1_resultados_indice_red.csv` | 16 índices compuestos de red, 3 grupos. |
 | `etapaC1_resultados_dirigido.csv` | Los mismos índices, contraste dirigido. |
+| `etapaB1_resultados_correlaciones.csv` | Índices de red × 8 outcomes conductuales (N=46). |
+| `etapaB2_resultados_correlaciones.csv` | ROIs prioridad alta × outcomes primarios (N=46). |
+| `etapaB3_resultados_correlaciones.csv` | **Dentro de pacientes** (n≈31) × conducta + Niigata + DHI. |
+| `SINTESIS_disociacion_resultados.csv` | **La doble disociación LGI/grosor**, en una tabla. |
 | `etapa*_enriquecimiento_resultados.csv` | Test de enriquecimiento por familia de cada etapa. |
 
 **Columnas clave de cualquier tabla de resultados:**
@@ -135,10 +139,16 @@ nominal.
 
 # 3. QUÉ SE ENCONTRÓ
 
-## 3.1 El resultado, en una línea
-> **La girificación (LGI) de la red DCNN es menor en MPPP que en pacientes vestibulares sin
-> cronificación, con un tamaño de efecto grande (d ≈ −0,9) que no se explica por ansiedad
-> ni depresión.**
+## 3.1 El resultado, en dos líneas
+> **1.** La **girificación (LGI)** de la red DCNN es menor en MPPP que en pacientes
+> vestibulares sin cronificación (d ≈ −0,9), y no se explica por ansiedad ni depresión.
+> Pero **no se asocia con nada**: ni con conducta ni con severidad.
+>
+> **2.** El **grosor cortical** hace exactamente lo contrario: **no diferencia grupos en
+> absoluto**, pero dentro de pacientes correlaciona fuertemente con la severidad sintomática
+> (Niigata rho = −0,70; DHI rho = −0,69 en supramarginal derecho).
+>
+> **Es una doble disociación: el LGI se comporta como rasgo y el grosor como estado.**
 
 ## 3.2 Lo que sobrevive al FDR (8 de 350 pruebas)
 
@@ -178,9 +188,58 @@ Al controlar STAI-R y BDI el efecto **no baja: sube**. Lo que cae es el N, y con
 precisión. Por eso ninguna prueba sobrevive al FDR en el modelo B — es pérdida de potencia,
 no desaparición del efecto. Justamente por esto el plan exigía comparar efectos y no solo p.
 
-## 3.5 Lo que NO se encontró
-- **Grosor cortical:** nada. Ni una prueba, ninguna familia enriquecida, sin consistencia
-  direccional (12/18 en una dirección es ruido).
+## 3.5 Etapa B · la estructura sí se asocia con la clínica — pero es el GROSOR
+
+**Dentro de pacientes (MPPP + Vestibular, n≈31), sobreviven al FDR:**
+
+| ROI | Hemi | Medida | Outcome | rho | IC 95% | p FDR |
+|---|---|---|---|---|---|---|
+| Giro supramarginal | rh | grosor | **Niigata** | **−0,70** | −0,86 a −0,51 | **0,0005** |
+| Giro supramarginal | rh | grosor | **DHI** | **−0,69** | −0,85 a −0,38 | 0,0012 |
+| Temporal superior | rh | grosor | DHI | −0,65 | −0,81 a −0,40 | 0,0017 |
+| Ínsula posterior | lh | grosor | Entropy-Ratio | +0,60 | +0,31 a +0,77 | 0,0034 |
+| Temporal superior | rh | grosor | Niigata | −0,57 | −0,79 a −0,29 | 0,011 |
+| **Índice de red** | bilat | grosor | DHI | −0,56 | −0,80 a −0,21 | 0,011 |
+| Precúneo | rh | grosor | DHI | −0,51 | −0,76 a −0,16 | 0,024 |
+| **Índice de red** | bilat | grosor | Niigata | −0,50 | −0,75 a −0,13 | 0,033 |
+| Temporal superior | lh | grosor | Entropy-Ratio | +0,48 | +0,13 a +0,70 | 0,035 |
+| Giro supramarginal | lh | grosor | DHI | −0,46 | −0,74 a −0,06 | 0,048 |
+
+Y en la muestra completa (B2), una: **ínsula posterior izquierda, grosor ↔ Entropy-Ratio**
+(rho = 0,45, p_FDR = 0,040).
+
+**Lo que sostiene esta lectura:**
+- La correlación grosor↔Niigata **se replica dentro de cada grupo por separado**:
+  MPPP rho = −0,70 (n=14, p=0,005) · Vestibular rho = −0,69 (n=17, p=0,002).
+  No es un artefacto de mezclar grupos.
+- De las **19** correlaciones con p<0,05, **ninguna** tiene signo incoherente con sus
+  intra-grupo → **no hay paradoja de Simpson operando**.
+- Dirección coherente: menos grosor ↔ más síntomas.
+
+**⚠️ Cautela obligatoria:** `Niigata` y `DHI` correlacionan entre sí **rho = 0,72**. Miden el
+mismo constructo y **cuentan como un solo hallazgo**, no como dos. En cambio la severidad
+clínica NO correlaciona con navegación (CSE↔Niigata rho = 0,26, p = 0,17): el eje clínico y el
+conductual sí son dimensiones independientes.
+
+## 3.6 La doble disociación (lo más publicable)
+
+| | LGI | Grosor cortical |
+|---|---|---|
+| ¿Diferencia MPPP de Vestibular? | **Sí** (d ≈ −0,9, 8 resultados con FDR) | **No** (0 de 136 pruebas) |
+| ¿Correlaciona con conducta? | No (\|rho\| ≤ 0,22) | Sí (Entropy-Ratio, rho ≈ 0,45–0,60) |
+| ¿Correlaciona con severidad? | No | **Sí, fuerte** (rho ≈ −0,50 a −0,70) |
+| Lectura | **rasgo predisponente** | **marcador de estado** |
+
+La girificación se establece en el desarrollo y es estable en la adultez: no puede cambiar en
+los meses que dura un MPPP, así que un efecto ahí apunta a predisposición. El grosor sí es
+plástico y responde a procesos adquiridos, así que su asociación con la severidad actual se lee
+como estado. **Dos medidas de la misma corteza contando dos historias distintas.**
+
+## 3.7 Lo que NO se encontró
+- **Grosor cortical, entre grupos:** nada. Ni una prueba, ninguna familia enriquecida, sin
+  consistencia direccional (12/18 es ruido). *Ojo: sí aparece en la etapa B — ver §3.5.*
+- **LGI, correlacionado con conducta o severidad:** nada. El |rho| máximo del índice de
+  girificación con cualquier outcome es 0,22, y ninguna de las 32 correlaciones sobrevive.
 - **Volumen y área:** nada que sobreviva. El área del istmo del cíngulo derecho tenía el p más
   bajo de A1 (0,0097, d=+1,35) pero su familia no está enriquecida (p=0,45): lo trataría como ruido.
 - **Subestructuras (A3):** ninguna familia enriquecida. Direccionalmente, amígdala 18/20 y
@@ -238,19 +297,31 @@ Las seis tablas originales contenían la **desviación estándar intrarregional*
 
 # 5. DISQUISICIONES — qué creo que está pasando
 
-**Que el hallazgo sea LGI y no grosor ni volumen es lo más interesante.** La girificación se
-establece en el desarrollo temprano y es muy estable en la adultez: no es plausible que se
-modifique en los meses que dura un cuadro de MPPP. Si el efecto es real, apunta a un
-**rasgo predisponente y no a una consecuencia** — una configuración cortical previa que hace a
-ciertos pacientes más vulnerables a cronificar tras un evento vestibular agudo. Esto es
-coherente con Nigro et al. y encaja con la clínica: no todo el que sufre una neuritis desarrolla
-MPPP. Es una hipótesis fuerte, contrastable con un diseño longitudinal, y explica por qué el
-contraste informativo es *contra el vestibular que no cronificó* y no contra el sano.
+**La doble disociación es el hallazgo, y es mejor que cualquiera de sus mitades.** Cuando solo
+teníamos la etapa A, la lectura era "el LGI diferencia grupos". Con la etapa B se vuelve mucho
+más específica: el LGI diferencia grupos **y no se mueve con la severidad**, mientras el grosor
+**no diferencia grupos pero sigue a la severidad de cerca**. Dos medidas de la misma corteza,
+en las mismas ROIs, con comportamientos opuestos y complementarios.
 
-**El grosor cortical estando completamente plano refuerza esto.** Si hubiera atrofia por
-desuso, cronicidad o comorbilidad afectiva, se vería en grosor y volumen — donde aparecen los
-efectos adquiridos. No hay nada: 12/18 direccional es ruido puro. El contraste entre un LGI
-consistente y un grosor plano es en sí mismo un argumento a favor de la lectura de rasgo.
+Eso encaja con lo que se sabe de cada medida. La girificación se establece en el desarrollo
+temprano y es muy estable en la adultez: no es plausible que se modifique en los meses que dura
+un cuadro de MPPP, así que un efecto ahí apunta a **rasgo predisponente** — una configuración
+cortical previa que hace a ciertos pacientes más vulnerables a cronificar tras un evento
+vestibular agudo. El grosor sí es plástico y responde a procesos adquiridos, de modo que su
+correlación con la severidad actual se lee como **marcador de estado**. Es coherente con
+Nigro et al. y con la clínica: no todo el que sufre una neuritis desarrolla MPPP, y entre los
+que lo desarrollan, no todos están igual de graves.
+
+**El modelo que sugiere:** una predisposición estructural (girificación) determina *quién*
+cronifica; una vez cronificado, un proceso adquirido (adelgazamiento cortical en el nodo
+TPJ/vestibular) escala con *cuán grave* está. Son dos preguntas distintas y este dataset
+responde una parte de cada una.
+
+**Lo que más me gusta metodológicamente** es que la disociación es difícil de producir por
+azar. Si todo fuera ruido, no esperaríamos que una medida cargue toda la señal entre grupos y
+la otra toda la señal con severidad, y que además ambas apunten a las mismas ROIs
+(supramarginal, temporal superior, ínsula posterior). Que el patrón sea *ortogonal* y no
+redundante es lo que lo hace convincente.
 
 **La topografía es coherente y no dispersa.** Las ROIs que sobreviven —ínsula posterior,
 temporal superior, supramarginal, parahipocampal— son el núcleo vestibular cortical y el nodo
@@ -268,9 +339,15 @@ misma magnitud que las ROIs individuales me da confianza en que no es un artefac
 agregación. Y es probablemente **la mejor figura para el paper**: una sola prueba, un efecto
 grande, y la hipótesis teórica planteada tal como se formuló.
 
-**Mi apuesta sobre qué resiste una revisión:** el LGI de la red DCNN en el contraste dirigido,
-presentado como generador de hipótesis, con la limitación de §4.1 declarada de entrada. Lo
-demás —grosor, volumen, área, subestructuras— es ruido y no lo defendería.
+**Mi apuesta sobre qué resiste una revisión:** los dos ejes de la disociación (§3.6). El LGI en
+el contraste dirigido, con la limitación de §4.1 declarada de entrada; y el grosor↔severidad
+dentro de pacientes, que es el resultado más robusto de todo el análisis (p_FDR = 0,0005 y
+replicado dentro de cada grupo). Volumen, área y subestructuras son ruido y no los defendería.
+
+**Un aviso sobre la correlación grosor↔severidad:** con rho = −0,70 y n = 31 el efecto es
+grande, pero el n sigue siendo pequeño y estos coeficientes están sesgados al alza cuando se
+seleccionan por ser los mayores de un barrido. La replicación intra-grupo mitiga bastante esa
+objeción, pero no la elimina. En el manuscrito reportaría el IC, no el rho puntual.
 
 ---
 
@@ -278,13 +355,17 @@ demás —grosor, volumen, área, subestructuras— es ruido y no lo defendería
 
 | Pendiente | Estado |
 |---|---|
-| **Etapa B** — estructura ↔ conducta (CSE, entropía, Niigata) | no iniciada |
+| ~~**Etapa B** — estructura ↔ conducta~~ | ✅ **corrida** (B1, B2, B3) |
+| ~~**C4** — dimensional dentro de pacientes~~ | ✅ **corrida** (integrada como B3) |
 | **A4** — whole-brain por tabla, masa-univariante | no iniciada |
-| **A5/B3** — vertex-wise `mri_glmfit` | ⚠️ el LGI necesita `mris_preproc` previo |
+| **A5/B3-vertex** — vertex-wise `mri_glmfit` | ⚠️ el LGI necesita `mris_preproc` previo (~1–2 h) |
 | **C2** — covarianza estructural entre ROIs | activado, no corrido |
 | **C3** — asimetría hemisférica L−R | activado, no corrido |
-| **C4** — dimensional dentro de pacientes (n=31) | activado, no corrido |
 | **Etapa D** — figuras anatómicas de superficie | falta instalar `surfplot` |
+
+**Prioridad sugerida ahora:** el vertex-wise. Con la disociación en la mano, la pregunta
+concreta es si un mapa whole-brain —que no sabe nada de la lista congelada de ROIs— ilumina
+las mismas regiones. Si lo hace, el argumento deja de depender de una sola aproximación.
 
 ---
 

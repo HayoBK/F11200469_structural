@@ -32,6 +32,9 @@ A3 = pd.read_csv(R / "etapaA3_resultados_ancova.csv")
 AD = pd.read_csv(R / "etapaAD_resultados_dirigido.csv")
 C1 = pd.read_csv(R / "etapaC1_resultados_indice_red.csv")
 C1d = pd.read_csv(R / "etapaC1_resultados_dirigido.csv")
+B1 = pd.read_csv(R / "etapaB1_resultados_correlaciones.csv")
+B2 = pd.read_csv(R / "etapaB2_resultados_correlaciones.csv")
+B3 = pd.read_csv(R / "etapaB3_resultados_correlaciones.csv")
 
 # %% ── inventario de lo corrido ─────────────────────────────────────────────
 inventario = []
@@ -48,6 +51,16 @@ for nombre, t, modelo, pregunta in [
         "Etapa": nombre, "Diseño": pregunta, "Pruebas": len(s),
         "p<0,05 nominal": int((s.p_perm < 0.05).sum()),
         "Sobreviven FDR": int(s.sobrevive_fdr.sum()),
+    })
+for nombre, t, pregunta in [
+    ("B1 · Índices de red ↔ conducta", B1, "correlación, N=46"),
+    ("B2 · ROIs alta ↔ conducta", B2, "correlación, N=46"),
+    ("B3 · Dentro de pacientes ↔ clínica", B3, "correlación, n≈31"),
+]:
+    inventario.append({
+        "Etapa": nombre, "Diseño": pregunta, "Pruebas": len(t),
+        "p<0,05 nominal": int((t.p < 0.05).sum()),
+        "Sobreviven FDR": int(t.sobrevive_fdr.sum()),
     })
 inventario = pd.DataFrame(inventario)
 print("=== INVENTARIO ===")
@@ -117,6 +130,30 @@ comp_ans["cambio"] = comp_ans["|d| medio con"] - comp_ans["|d| medio sin"]
 print("\n=== ¿La ansiedad explica el efecto del LGI? ===")
 print(comp_ans.round(3).to_string(index=False))
 
+# %% ── la doble disociación: LGI vs grosor ──────────────────────────────────
+# Cruza las etapas A y B: ¿qué medida separa grupos y cuál se asocia a severidad?
+corr_todo = pd.concat([B1, B2, B3], ignore_index=True)
+filas_dis = []
+for medida in ["LGI", "thickness", "volume", "area"]:
+    dif = AD[(AD.modelo == "AD_sin_ansiedad") & (AD.medida == medida)]
+    cor_cond = corr_todo[(corr_todo.medida == medida)
+                         & (corr_todo.outcome.isin(["CSE_NI", "EntropyRatio_NI"]))]
+    cor_clin = corr_todo[(corr_todo.medida == medida)
+                         & (corr_todo.outcome.isin(["Niigata", "DHI"]))]
+    filas_dis.append({
+        "medida": medida,
+        "|d| medio MPPP-Vest": dif.MPPP_vs_Vestibular_d.abs().mean(),
+        "difs. que sobreviven": int(dif.sobrevive_fdr.sum()),
+        "|rho| máx con conducta": cor_cond.rho.abs().max(),
+        "corr. conducta que sobreviven": int(cor_cond.sobrevive_fdr.sum()),
+        "|rho| máx con severidad": cor_clin.rho.abs().max(),
+        "corr. severidad que sobreviven": int(cor_clin.sobrevive_fdr.sum()),
+    })
+disociacion = pd.DataFrame(filas_dis)
+print("\n=== DOBLE DISOCIACIÓN · LGI vs grosor ===")
+print(disociacion.round(3).to_string(index=False))
+disociacion.to_csv(R / "SINTESIS_disociacion_resultados.csv", index=False)
+
 # %% ── figura de síntesis ───────────────────────────────────────────────────
 lgi_ad_s = lgi_ad.copy()
 lgi_ad_s["etiqueta"] = lgi_ad_s["roi"] + "  " + lgi_ad_s["hemi"]
@@ -179,6 +216,46 @@ doc.texto(
     "que el plan exige comparar <b>tamaños de efecto</b> y no solo valores p."
 )
 doc.tabla(comp_ans.round(3))
+
+doc.h3("La doble disociación · LGI es rasgo, grosor es estado")
+doc.texto(
+    "El resultado más elegante del análisis aparece al cruzar las dos etapas. "
+    "<b>El LGI y el grosor cortical se comportan de forma exactamente complementaria:</b>"
+)
+doc.tabla(disociacion)
+doc.texto(
+    "<b>El LGI separa grupos pero no se asocia a nada.</b> Distingue MPPP de Vestibular con "
+    "d ≈ −0,9, y sin embargo su correlación con la conducta y con la severidad es "
+    "prácticamente nula (|rho| ≤ 0,22, ninguna sobrevive al FDR). Es decir: no varía con lo "
+    "enfermo que esté el paciente.<br><br>"
+    "<b>El grosor no separa grupos pero se asocia con todo.</b> No hay ni una diferencia de "
+    "grosor entre grupos en las 136 pruebas de las etapas A, y sin embargo dentro de "
+    "pacientes correlaciona fuertemente con la severidad sintomática (Niigata rho = −0,70; "
+    "DHI rho = −0,69 en supramarginal derecho) y con la entropía de búsqueda."
+)
+doc.nota(
+    "Esto encaja con lo que se sabe de cada medida. La <b>girificación se establece en el "
+    "desarrollo temprano y es estable en la adultez</b>: no puede cambiar en los meses que "
+    "dura un cuadro de MPPP, así que un efecto ahí apunta a <b>rasgo predisponente</b>. "
+    "El <b>grosor cortical sí es plástico</b> y responde a procesos adquiridos, así que su "
+    "asociación con la severidad actual se lee como <b>marcador de estado</b>. "
+    "Dos medidas de la misma corteza contando dos historias distintas."
+)
+doc.texto(
+    "<b>Lo que sostiene la lectura del grosor:</b> la correlación con Niigata se replica "
+    "<b>dentro de cada grupo por separado</b> — MPPP rho = −0,70 (n=14, p=0,005) y "
+    "Vestibular rho = −0,69 (n=17, p=0,002) — así que no es un artefacto de mezclar grupos. "
+    "Y de las 19 correlaciones con p&lt;0,05, <b>ninguna</b> tiene signo incoherente con sus "
+    "intra-grupo: no hay paradoja de Simpson en juego."
+)
+doc.nota(
+    "<b>Cautela sobre los outcomes clínicos:</b> Niigata y DHI correlacionan entre sí "
+    "<b>rho = 0,72</b>. Miden esencialmente el mismo constructo (severidad sintomática) y "
+    "<b>no son dos hallazgos independientes</b>: cuentan como uno. En cambio, la severidad "
+    "clínica NO correlaciona con el desempeño en navegación (CSE rho = 0,26 con Niigata, "
+    "p = 0,17), de modo que el eje clínico y el eje conductual sí son dimensiones distintas.",
+    alerta=True,
+)
 
 doc.h3("Problemas abiertos y cautelas")
 doc.nota(
