@@ -1,0 +1,9 @@
+medida,diseno,n,clases,n_por_clase,covariables,contrastes,ancho_diseno
+thickness,tres_grupos,46,Voluntario Sano / Vestibular / MPPP,"{'Vestibular': 19, 'MPPP': 17, 'Voluntario Sano': 10}",Edad Genero_M N_Educacional,MPPP_vs_Voluntario_Sano MPPP_vs_Vestibular Vestibular_vs_Voluntario_Sano,6
+thickness,dirigido,36,Vestibular / MPPP,"{'Vestibular': 19, 'MPPP': 17}",Edad Genero_M N_Educacional,MPPP_vs_Vestibular,5
+area,tres_grupos,46,Voluntario Sano / Vestibular / MPPP,"{'Vestibular': 19, 'MPPP': 17, 'Voluntario Sano': 10}",Edad Genero_M N_Educacional eTIV,MPPP_vs_Voluntario_Sano MPPP_vs_Vestibular Vestibular_vs_Voluntario_Sano,7
+area,dirigido,36,Vestibular / MPPP,"{'Vestibular': 19, 'MPPP': 17}",Edad Genero_M N_Educacional eTIV,MPPP_vs_Vestibular,6
+volume,tres_grupos,46,Voluntario Sano / Vestibular / MPPP,"{'Vestibular': 19, 'MPPP': 17, 'Voluntario Sano': 10}",Edad Genero_M N_Educacional eTIV,MPPP_vs_Voluntario_Sano MPPP_vs_Vestibular Vestibular_vs_Voluntario_Sano,7
+volume,dirigido,36,Vestibular / MPPP,"{'Vestibular': 19, 'MPPP': 17}",Edad Genero_M N_Educacional eTIV,MPPP_vs_Vestibular,6
+pial_lgi,tres_grupos,45,Voluntario Sano / Vestibular / MPPP,"{'Vestibular': 18, 'MPPP': 17, 'Voluntario Sano': 10}",Edad Genero_M N_Educacional,MPPP_vs_Voluntario_Sano MPPP_vs_Vestibular Vestibular_vs_Voluntario_Sano,6
+pial_lgi,dirigido,35,Vestibular / MPPP,"{'Vestibular': 18, 'MPPP': 17}",Edad Genero_M N_Educacional,MPPP_vs_Vestibular,5

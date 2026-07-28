@@ -1,0 +1,8 @@
+medida,diseno,hemi,contraste,cluster,size_mm2,CWP,max,MNI,anotacion
+pial_lgi,tres_grupos,lh,MPPP_vs_Vestibular,1,785.64,0.0002,-5.5236,"-8, -12, 67",superiorfrontal
+pial_lgi,tres_grupos,rh,MPPP_vs_Vestibular,1,220.83,0.0002,-4.4705,"28, -89, -13",lateraloccipital
+pial_lgi,tres_grupos,rh,MPPP_vs_Vestibular,2,183.43,0.0016,-4.9283,"13, 22, 29",superiorfrontal
+pial_lgi,tres_grupos,rh,MPPP_vs_Vestibular,3,124.75,0.01752,-4.0268,"34, -71, -13",fusiform
+pial_lgi,dirigido,lh,MPPP_vs_Vestibular,1,605.89,0.0002,-5.1327,"-14, -10, 68",superiorfrontal
+pial_lgi,dirigido,rh,MPPP_vs_Vestibular,1,188.07,0.0014,-5.0882,"11, 27, 25",caudalanteriorcingulate
+pial_lgi,dirigido,rh,MPPP_vs_Vestibular,2,107.2,0.03469,-3.9955,"28, -89, -13",lateraloccipital

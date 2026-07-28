@@ -1,0 +1,8 @@
+diseno,hemi,cluster,n_vertices,composicion
+dirigido,lh,1,1444,precentral 51% · superiorfrontal 48%
+dirigido,rh,1,443,superiorfrontal 55% · caudalanteriorcingulate 45%
+dirigido,rh,2,114,lateraloccipital 100%
+tres_grupos,lh,1,1864,precentral 58% · superiorfrontal 41%
+tres_grupos,rh,1,239,lateraloccipital 87% · lingual 13%
+tres_grupos,rh,2,440,superiorfrontal 58% · caudalanteriorcingulate 42%
+tres_grupos,rh,3,205,fusiform 100%

@@ -44,6 +44,10 @@ Una fila por prueba estadística. Todas versionadas en GitHub (son agregados, si
 | `etapaC3_resultados_asimetria.csv` | 68 índices de asimetría L−R × 2 diseños. |
 | `etapaC2_resultados_covarianza.csv` | Covarianza estructural de la red, MPPP vs Vestibular. |
 | `etapaC2_matrices_resultados_por_grupo.csv` | Covarianza media de la red por grupo y medida. |
+| `etapaA5_resultados_vertexwise.csv` | **Vertex-wise**: 32 combinaciones medida × diseño × hemi × contraste. |
+| `etapaA5_clusters_resultados.csv` | **Los 7 clusters significativos**, con tamaño, CWP y coordenadas MNI. |
+| `etapaA5_composicion_clusters_resultados.csv` | Qué ROIs del atlas DK abarca cada cluster (no solo el pico). |
+| `etapaA5_disenos_resultados.csv` | Los FSGD generados y su N por clase. |
 | `etapa*_enriquecimiento_resultados.csv` | Test de enriquecimiento por familia de cada etapa. |
 
 **Columnas clave de cualquier tabla de resultados:**
@@ -64,7 +68,10 @@ Una fila por prueba estadística. Todas versionadas en GitHub (son agregados, si
 | `figs/etapaA2/`, `figs/etapaA3/` | Lo mismo para prioridad media y subestructuras. |
 | `figs/etapaAD/` | Contraste dirigido + **comparación de diseños** (r = 0,99). |
 | `figs/etapaC1/` | Índices de red: violines y forest comparando ambos diseños. |
-| `figs/sintesis/` | 🔴 **`forest_LGI_todas_las_rois`** — la figura candidata a principal del paper. |
+| `figs/etapaB/` | Scatter estructura↔conducta con recta por grupo, heatmaps rho. |
+| `figs/etapaC2/`, `figs/etapaC3/` | Matrices de covarianza; forest de asimetría. |
+| `figs/etapaD/` | 🔴 **`superficie_LGI_dirigido`** — los mapas de superficie con los clusters. |
+| `figs/sintesis/` | 🔴 **`forest_LGI_todas_las_rois`** — la otra figura candidata a principal. |
 
 ## 1.4 Código — `src/` y `notebooks/`
 
@@ -78,6 +85,8 @@ Una fila por prueba estadística. Todas versionadas en GitHub (son agregados, si
 | `src/pipeline.py` | El bucle común de todas las etapas + índice compuesto de red. |
 | `src/figuras.py` | Sistema visual único (paleta validada para daltonismo). |
 | `src/reporte.py` | Acumulador del documento HTML. |
+| `src/correlaciones.py` | Spearman parcial con IC BCa + chequeo de paradoja de Simpson. |
+| `src/glmfit.py` | Vertex-wise: genera FSGD y contrastes, invoca FreeSurfer, parsea clusters. |
 | `notebooks/etapa*.py`, `sintesis.py` | Un script por etapa. Llevan marcadores `# %%`: **en PyCharm se ejecutan por celdas** (Scientific Mode). |
 
 ## 1.5 Cómo regenerar todo desde cero
@@ -92,10 +101,16 @@ $V notebooks/etapaA2_roi_media.py
 $V notebooks/etapaA3_subestructuras.py
 $V notebooks/etapaC1_indice_red.py
 $V notebooks/etapaAD_dirigido_mppp_vs_vestibular.py
+$V notebooks/etapaC3_asimetria.py
+$V notebooks/etapaC2_covarianza_estructural.py
+$V notebooks/etapaB_estructura_conducta.py                # ~8 min (bootstrap)
+$V notebooks/etapaA5_vertexwise_preparar.py               # ~4 min (mris_preproc del LGI)
+$V notebooks/etapaA5_vertexwise_glm.py
+$V notebooks/etapaD_figuras_superficie.py
 $V notebooks/sintesis.py                                  # cierra el documento
 open docs/REPORTE_EXPLORATORIO.html
 ```
-Corre entero en ~4 minutos. Es determinista: la semilla es `11200469`, así que dos
+Corre entero en ~15 minutos. Es determinista: la semilla es `11200469`, así que dos
 ejecuciones dan exactamente los mismos números.
 
 ---
@@ -270,7 +285,51 @@ por permutación.
 ⚠️ El grupo sano (n=10) se muestra pero **no se contrasta formalmente**: una matriz de
 correlación de 14 variables con n=10 es demasiado inestable para sostener una comparación.
 
-## 3.8 Lo que NO se encontró
+## 3.8 Etapa A5 · Whole-brain vertex-wise — **7 clusters, todos en LGI**
+
+El análisis que no depende del atlas: el mismo modelo ajustado en los ~164.000 vértices de
+cada hemisferio, con corrección por clusters (Monte Carlo, umbral p<0,001, CWP<0,05,
+corregido por dos hemisferios).
+
+**Resultado: 7 clusters significativos. Todos en LGI. Todos en el contraste MPPP vs
+Vestibular. Todos con MPPP por debajo. Cero clusters en grosor, área y volumen; cero en
+cualquier contraste que involucre al grupo sano.**
+
+| Diseño | Hemi | Tamaño | CWP | Composición anatómica (atlas DK) |
+|---|---|---|---|---|
+| dirigido | lh | **606 mm²** | **0,0002** | **precentral 51%** + superiorfrontal 48% |
+| dirigido | rh | 188 mm² | 0,0014 | superiorfrontal 55% + **ACC caudal 45%** |
+| dirigido | rh | 107 mm² | 0,035 | **occipital lateral 100%** |
+| 3 grupos | lh | **786 mm²** | **0,0002** | **precentral 58%** + superiorfrontal 41% |
+| 3 grupos | rh | 221 mm² | 0,0002 | **occipital lateral 87%** + lingual 13% |
+| 3 grupos | rh | 183 mm² | 0,0016 | superiorfrontal 58% + **ACC caudal 42%** |
+| 3 grupos | rh | 125 mm² | 0,018 | fusiforme 100% |
+
+### ⚠️ La convergencia es PARCIAL, y hay que decirlo así
+
+**Converge en lo esencial:** la medida (LGI y solo LGI), la dirección (MPPP < Vestibular) y el
+contraste (dirigido, nunca contra sanos). Un análisis que no sabe nada de la lista congelada de
+ROIs llega al mismo sitio conceptual. Eso es exactamente la validación que se buscaba.
+
+**Pero NO converge en la localización precisa.** Los clusters caen en ROIs de **prioridad
+MEDIA** —`precentral` (ROI 16), `ACC` (ROI 14), `occipital lateral` (ROI 11)— y no en las de
+**prioridad ALTA** donde el análisis por ROI daba los efectos más grandes (ínsula posterior,
+temporal superior, supramarginal, parahipocampal). Además, `superiorfrontal` no estaba en la
+lista, y `fusiforme` estaba explícitamente **fuera** del confirmatorio.
+
+**Mi explicación, que es una hipótesis y no un hecho:** los dos análisis miden cosas distintas.
+El análisis por ROI **promedia toda la región**, así que detecta efectos *difusos* — un
+desplazamiento moderado de toda la ínsula posterior. El vertex-wise busca **picos focales** que
+superen p<0,001 en vértices contiguos, así que detecta efectos *concentrados*. Que ínsula y
+temporal superior aparezcan en uno y no en el otro sugiere un efecto extendido y de magnitud
+media; que precentral y ACC aparezcan en ambos sugiere que ahí hay además un foco.
+
+**Apoyo a esta lectura:** en la etapa A2 los dos efectos individuales más grandes de todo el
+análisis por ROI fueron precisamente **`precentral` izq (d = −1,04) y `postcentral` izq
+(d = −1,10)**, ambos en LGI. El cluster izquierdo de 606–786 mm² cae justo ahí. Eso no es
+coincidencia: es la misma señal vista con dos instrumentos.
+
+## 3.9 Lo que NO se encontró
 - **Grosor cortical, entre grupos:** nada. Ni una prueba, ninguna familia enriquecida, sin
   consistencia direccional (12/18 es ruido). *Ojo: sí aparece en la etapa B — ver §3.5.*
 - **LGI, correlacionado con conducta o severidad:** nada. El |rho| máximo del índice de
@@ -358,6 +417,21 @@ la otra toda la señal con severidad, y que además ambas apunten a las mismas R
 (supramarginal, temporal superior, ínsula posterior). Que el patrón sea *ortogonal* y no
 redundante es lo que lo hace convincente.
 
+**El vertex-wise es la mejor noticia metodológica del análisis, con un matiz.** Un procedimiento
+que no sabe nada de la lista congelada de ROIs, que no promedia por regiones y que corrige por
+164.000 pruebas, encuentra clusters **solo en LGI**, **solo en MPPP vs Vestibular** y **siempre
+con MPPP por debajo**, con CWP de 0,0002. Es una réplica independiente de la conclusión
+central. Y cero clusters en grosor, área y volumen — el mismo perfil selectivo que veíamos por
+ROI.
+
+El matiz es que los focos caen en precentral, ACC y occipital lateral, no en las ROIs de
+prioridad alta. Mi lectura (§3.8) es que son dos instrumentos con sensibilidades distintas:
+uno detecta desplazamientos difusos de toda una región, el otro picos focales. Pero **es una
+hipótesis, y un revisor podría leerlo como que el análisis por ROI y el whole-brain se
+contradicen**. Conviene adelantarse: reportar ambos completos, señalar que coinciden en medida,
+dirección y contraste, y explicar por qué pueden diferir en localización sin que ninguno esté
+equivocado.
+
 **Los resultados nulos de C2 y C3 refuerzan la historia en vez de debilitarla.** Si el
 fenómeno fuera un artefacto global —peor calidad de imagen en un grupo, un sesgo de
 procesamiento, atrofia difusa— esperaríamos verlo también en la asimetría y en la organización
@@ -401,14 +475,16 @@ objeción, pero no la elimina. En el manuscrito reportaría el IC, no el rho pun
 | ~~**C4** — dimensional dentro de pacientes~~ | ✅ **corrida** (integrada como B3) |
 | ~~**C2** — covarianza estructural entre ROIs~~ | ✅ **corrida** — nulo (ver §3.7) |
 | ~~**C3** — asimetría hemisférica L−R~~ | ✅ **corrida** — nulo (ver §3.7) |
-| **A4** — whole-brain por tabla, masa-univariante | no iniciada |
-| **A5/B3-vertex** — vertex-wise `mri_glmfit` | ⚠️ el LGI necesita `mris_preproc` previo (~1–2 h) |
-| **Etapa D** — figuras anatómicas de superficie | falta instalar `surfplot` |
+| ~~**A5** — vertex-wise `mri_glmfit`~~ | ✅ **corrida** — 7 clusters, todos LGI (ver §3.8) |
+| ~~**Etapa D** — figuras de superficie~~ | ✅ **corrida** con nilearn (no hizo falta `surfplot`) |
+| **A4** — whole-brain por tabla, masa-univariante | no iniciada · **el vertex-wise la vuelve casi redundante** |
+| **B3-vertex** — vertex-wise con regresor continuo (CSE, Niigata) | no iniciada · **el pendiente más interesante** |
 
-**Prioridad ahora: el vertex-wise** (decisión del PI: dejarlo para la etapa siguiente). Con la
-disociación en la mano, la pregunta concreta es si un mapa whole-brain —que no sabe nada de la
-lista congelada de ROIs— ilumina las mismas regiones. Si lo hace, el argumento deja de depender
-de una sola aproximación metodológica.
+**Prioridad ahora: el vertex-wise de la Etapa B.** Sabemos que el grosor sigue a la severidad
+dentro de pacientes (§3.5) y que el LGI tiene focos en precentral y ACC (§3.8). Falta preguntar
+lo mismo vértice a vértice: ¿dónde correlaciona el grosor con Niigata/DHI? Es el mismo
+`mri_glmfit` con la severidad como covariable continua, y ya está todo el preprocesamiento
+hecho — sería rápido.
 
 ---
 
