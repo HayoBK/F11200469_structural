@@ -85,6 +85,27 @@ inventario.append({
     "Pruebas": len(A5), "p<0,05 nominal": int((A5.n_clusters > 0).sum()),
     "Sobreviven FDR": int(A5.n_clusters.sum()),
 })
+# bloques añadidos después de la primera versión de esta síntesis
+A4 = pd.read_csv(R / "etapaA4_resultados_wholebrain.csv")
+B5 = pd.read_csv(R / "etapaB5_resultados_vertexwise_correlaciones.csv")
+B4 = pd.concat([pd.read_csv(R / f"etapaB4{x}_resultados_correlaciones.csv") for x in
+                ["a_navegacion_global", "b_severidad_pacientes", "c_navegacion_pacientes"]],
+               ignore_index=True)
+inventario.append({
+    "Etapa": "A4 · Whole-brain por tabla", "Diseño": "3 atlas + aseg, 2 diseños",
+    "Pruebas": len(A4), "p<0,05 nominal": int((A4.p_perm < 0.05).sum()),
+    "Sobreviven FDR": int(A4.sobrevive_fdr.sum()),
+})
+inventario.append({
+    "Etapa": "B4 · Barrido completo de correlaciones", "Diseño": "3 contextos",
+    "Pruebas": len(B4), "p<0,05 nominal": int((B4.p < 0.05).sum()),
+    "Sobreviven FDR": int(B4.sobrevive_fdr.sum()),
+})
+inventario.append({
+    "Etapa": "B5 · Vertex-wise de correlaciones", "Diseño": "4 outcomes × 4 medidas",
+    "Pruebas": len(B5), "p<0,05 nominal": int((B5.n_clusters > 0).sum()),
+    "Sobreviven FDR": int(B5.n_clusters.sum()),
+})
 inventario = pd.DataFrame(inventario)
 print("=== INVENTARIO ===")
 print(inventario.to_string(index=False))

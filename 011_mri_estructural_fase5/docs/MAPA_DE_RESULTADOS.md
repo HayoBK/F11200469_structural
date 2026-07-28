@@ -5,6 +5,30 @@
 Este archivo es el **índice maestro**. Si vuelves a esto en tres meses y no recuerdas nada,
 empieza aquí.
 
+> ## ⏱️ Si solo tienes dos minutos
+>
+> **Fase 5 cerrada.** 4.210 pruebas en 17 bloques analíticos; 53 sobreviven a la corrección.
+>
+> **Un solo resultado, con dos mitades complementarias — una doble disociación:**
+> - La **girificación (LGI)** distingue MPPP de pacientes vestibulares (d ≈ −0,9) pero **no se
+>   asocia con nada** clínico ni conductual (0 de 260 correlaciones).
+> - El **grosor cortical** no distingue grupos en absoluto (0 de 136 pruebas dirigidas; 0,2×
+>   el azar en whole-brain) pero **sigue de cerca a la severidad** (32 de 260; ρ hasta −0,70).
+>
+> **Lectura:** girificación = rasgo (estable desde el desarrollo, marca *quién* cronifica);
+> grosor = estado (plástico, marca *cuán grave* está).
+>
+> **Lo que lo sostiene:** replicado en las tres parcelaciones (r = 0,95–0,997), replicado
+> vertex-wise de forma independiente, ningún sujeto es decisivo (leave-one-out limpio), la
+> ansiedad no lo explica (el efecto *sube* al ajustar), y la calidad de imagen no difiere
+> entre grupos.
+>
+> **La limitación que hay que declarar de entrada:** el contraste informativo es contra
+> pacientes vestibulares, no contra sanos, y los sanos quedan en posición intermedia. No se
+> puede distinguir "reducida en MPPP" de "aumentada en quien compensa bien". Ver §4.1.
+>
+> **➡️ Para escribir: [`PAPER_BORRADOR.md`](PAPER_BORRADOR.md).**
+
 ---
 
 # 1. DÓNDE ESTÁ TODO
