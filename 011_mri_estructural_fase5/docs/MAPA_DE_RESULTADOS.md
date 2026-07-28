@@ -17,6 +17,7 @@ Todo vive en `~/Repos/F11200469_structural/011_mri_estructural_fase5/`
 
 | Qué | Dónde | Nota |
 |---|---|---|
+| 🔴🔴 **EL BORRADOR DE PAPER** | `docs/PAPER_BORRADOR.md` | **Empieza por aquí si vas a escribir.** Resumen, métodos exhaustivos, resultados positivos y negativos, discusión, y una propuesta editorial con figuras, orden narrativo y objeciones anticipadas. |
 | 🔴 **El documento exploratorio completo** | `docs/REPORTE_EXPLORATORIO.html` | **Ábrelo en el navegador.** Todo el análisis, etapa por etapa: método, N, tablas completas y todas las figuras candidatas. Es el archivo que pediste para elegir figuras. **No está en GitHub** (2,4 MB, se regenera con un comando). |
 | El plan de análisis | `docs/PLAN_ANALISIS_FASE5.md` | Qué se iba a hacer y por qué, con las 7 decisiones que tomaste. |
 | Este mapa | `docs/MAPA_DE_RESULTADOS.md` | Índice + disquisiciones. |
@@ -413,6 +414,42 @@ etapa B eran 0 de 19). Con más pruebas empiezan a aparecer correlaciones que so
 la separación entre grupos. Están marcadas en la columna `coherente` y **no deben interpretarse
 como relaciones individuales**.
 
+## 3.11 Etapas A4 y R · el barrido total y la robustez
+
+**A4 · barrido whole-brain por tabla** (1.134 ROIs de los tres atlas + aseg, dos diseños):
+**cero supervivientes de 2.268**. Pero la distribución de la señal en el diseño dirigido es
+informativa:
+
+| Medida | Pruebas | p<0,05 observadas | Esperadas por azar | Razón |
+|---|---|---|---|---|
+| **LGI** | 278 | **73** | 13,9 | **5,3×** |
+| Área | 278 | 21 | 13,9 | 1,5× |
+| Volumen | 300 | 22 | 15,0 | 1,5× |
+| **Grosor** | 278 | **3** | 13,9 | **0,2×** |
+
+El LGI acumula cinco veces más señal de la esperable en todo el manto; el grosor acumula
+**menos que el azar**. Es la disociación otra vez, ahora sin ninguna hipótesis previa.
+
+**R1 · réplica entre atlas** — el efecto del LGI se reproduce en las tres parcelaciones:
+DKT vs DK **r = 0,997**, DKT vs Destrieux **r = 0,947**, DK vs Destrieux **r = 0,954**, y
+**16/16 regiones conservan el signo** en los tres pares. No es artefacto de la parcelación.
+
+**R8 · leave-one-out** — ningún sujeto sostiene ningún hallazgo:
+
+| Hallazgo | Observado | Rango LOO | Pierden p<0,05 |
+|---|---|---|---|
+| Índice de red · LGI | d = −0,92 | −1,23 a −0,84 | **0 de 36** |
+| Ínsula posterior der · LGI | d = −1,04 | −1,28 a −0,91 | **0 de 36** |
+| Temporal superior der · LGI | d = −1,04 | −1,21 a −0,92 | **0 de 36** |
+| Supramarginal der ↔ Niigata | ρ = −0,70 | −0,74 a −0,63 | — |
+| Supramarginal der ↔ DHI | ρ = −0,69 | −0,75 a −0,64 | — |
+| Temporal superior der ↔ DHI | ρ = −0,65 | −0,69 a −0,62 | — |
+| Postcentral izq ↔ DHI | ρ = −0,68 | −0,72 a −0,63 | — |
+
+**Esto cierra la cautela de §4.3 sobre el sesgo de selección del rho.** Era mi objeción
+principal a los hallazgos de correlación y no se sostiene: los rangos son estrechos y ninguna
+reestimación pierde significación.
+
 ## 3.10 Lo que NO se encontró
 - **Grosor cortical, entre grupos:** nada. Ni una prueba, ninguna familia enriquecida, sin
   consistencia direccional (12/18 es ruido). *Ojo: sí aparece en la etapa B — ver §3.5.*
@@ -561,7 +598,8 @@ objeción, pero no la elimina. En el manuscrito reportaría el IC, no el rho pun
 | ~~**C3** — asimetría hemisférica L−R~~ | ✅ **corrida** — nulo (ver §3.7) |
 | ~~**A5** — vertex-wise `mri_glmfit`~~ | ✅ **corrida** — 7 clusters, todos LGI (ver §3.8) |
 | ~~**Etapa D** — figuras de superficie~~ | ✅ **corrida** con nilearn (no hizo falta `surfplot`) |
-| **A4** — whole-brain por tabla, masa-univariante | no iniciada · **el vertex-wise la vuelve casi redundante** |
+| ~~**A4** — whole-brain por tabla~~ | ✅ **corrida** — 0 de 2.268, pero el LGI acumula 5,3× el azar |
+| ~~**R1/R8** — robustez (atlas y leave-one-out)~~ | ✅ **corridas** — ver §3.11 |
 | ~~**B4** — barrido completo (ROIs media + subestructuras)~~ | ✅ **corrida** — 22 supervivientes (§3.9) |
 | ~~**B5** — vertex-wise con regresor continuo~~ | ✅ **corrida** — 5 clusters, 3 convergencias (§3.9) |
 
