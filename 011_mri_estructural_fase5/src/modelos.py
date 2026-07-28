@@ -214,6 +214,19 @@ def ancova(
 
     rss1 = float(_rss(X_full, yv))
     rss0 = float(_rss(X_red, yv))
+
+    # Una variable constante (o perfectamente explicada por las covariables) deja
+    # RSS = 0 y el modelo deja de estar definido. Pasa en barridos masivos sobre
+    # estructuras del aseg que valen lo mismo en todos los sujetos. Se devuelve un
+    # resultado vacío en vez de fallar, para no abortar un barrido de miles.
+    if not np.isfinite(rss1) or (rss1 + abs(rss0 - rss1)) <= 0:
+        return ResultadoANCOVA(
+            variable=y, n=len(d), n_por_grupo=d[grupo].value_counts().to_dict(),
+            formula=formula, F=np.nan, df_num=df_num, df_den=df_den,
+            p_param=np.nan, p_hc3=np.nan, p_perm=np.nan,
+            eta2p=np.nan, eta2p_ic=(np.nan, np.nan), posthoc={},
+        )
+
     F = float(_f_desde_rss(np.array([rss1]), np.array([rss0]), df_num, df_den)[0])
     p_param = float(stats.f.sf(F, df_num, df_den))
 
