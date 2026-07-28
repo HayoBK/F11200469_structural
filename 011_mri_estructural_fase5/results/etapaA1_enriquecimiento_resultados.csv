@@ -1,0 +1,5 @@
+familia,n_pruebas,n_efectivo,n_observado_p<0.05,esperado_por_azar,p_enriquecimiento
+LGI,14,45,4,0.744,0.047476261869065464
+thickness,14,46,1,0.711,0.43228385807096453
+volume,16,46,0,0.771,1.0
+area,14,46,1,0.658,0.4472763618190905

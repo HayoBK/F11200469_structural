@@ -119,10 +119,16 @@ PII/
 !011_mri_estructural_fase5/figs/**/*.png
 !011_mri_estructural_fase5/figs/**/*.pdf
 !011_mri_estructural_fase5/figs/**/*.svg
-# Tablas de RESULTADOS agregados (estadísticos por ROI, nunca filas por sujeto).
-# Se habilitan una por una y de forma explícita, nunca con comodín:
-!011_mri_estructural_fase5/results/**/*_resultados_*.csv
-!011_mri_estructural_fase5/results/**/*_efectos_*.csv
+# Tablas de RESULTADOS agregados (una fila por PRUEBA — estadísticos por ROI,
+# nunca filas por sujeto). El sufijo `_resultados` es el marcador explícito:
+# un archivo sin él no se versiona, aunque esté en results/.
+!011_mri_estructural_fase5/results/**/*_resultados*.csv
+!011_mri_estructural_fase5/results/**/*_efectos*.csv
+
+# El documento exploratorio se REGENERA con un comando y pesa MB (imágenes
+# embebidas en base64). Al repo van las figuras elegidas, no el documento.
+011_mri_estructural_fase5/docs/REPORTE_EXPLORATORIO.html
+011_mri_estructural_fase5/docs/_reporte.pkl
 # Entorno y configuración
 !requirements.txt
 !**/requirements.txt

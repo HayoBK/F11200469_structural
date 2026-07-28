@@ -1,0 +1,59 @@
+variable,shapiro_p,levene_p,no_normal,heterocedastica,n_outliers_z3,medida,roi,hemi
+1_comp_thickness_lh,0.3076140021613309,0.2771787748294045,False,False,0,thickness,Ínsula posterior,lh
+1_comp_thickness_rh,0.6307091918471508,0.34723123194082256,False,False,0,thickness,Ínsula posterior,rh
+1_comp_area_lh,0.38239243956330304,0.025203625901608167,False,True,1,area,Ínsula posterior,lh
+1_comp_area_rh,0.9060008143995004,0.452816975468771,False,False,0,area,Ínsula posterior,rh
+1_comp_volume_lh,0.6061644809967471,0.013405639345968981,False,True,0,volume,Ínsula posterior,lh
+1_comp_volume_rh,0.9503776237557054,0.1288193335297355,False,False,0,volume,Ínsula posterior,rh
+1_comp_LGI_lh,0.848445613405613,0.23647907728946746,False,False,0,LGI,Ínsula posterior,lh
+1_comp_LGI_rh,0.8346951248991388,0.8279028198934361,False,False,0,LGI,Ínsula posterior,rh
+2_supramarginal_thickness_lh,0.45498662274635426,0.3182099685187206,False,False,0,thickness,Giro supramarginal,lh
+2_supramarginal_thickness_rh,0.6418495540672194,0.35274361837440327,False,False,0,thickness,Giro supramarginal,rh
+2_supramarginal_area_lh,0.16343068676364886,0.08131797972161625,False,False,0,area,Giro supramarginal,lh
+2_supramarginal_area_rh,0.7138706968671585,0.5002089697660451,False,False,0,area,Giro supramarginal,rh
+2_supramarginal_volume_lh,0.5551878654877943,0.5222371840336769,False,False,0,volume,Giro supramarginal,lh
+2_supramarginal_volume_rh,0.872156448038162,0.6720384239229735,False,False,0,volume,Giro supramarginal,rh
+2_supramarginal_LGI_lh,0.6242573919658879,0.9478267357187132,False,False,0,LGI,Giro supramarginal,lh
+2_supramarginal_LGI_rh,0.9122446294282587,0.42587046406535106,False,False,0,LGI,Giro supramarginal,rh
+3_superiortemporal_thickness_lh,0.9579009025493216,0.767726000425464,False,False,0,thickness,Temporal superior,lh
+3_superiortemporal_thickness_rh,0.4408996324527131,0.2646921646900647,False,False,0,thickness,Temporal superior,rh
+3_superiortemporal_area_lh,0.03577099265215506,0.17666460464926548,True,False,0,area,Temporal superior,lh
+3_superiortemporal_area_rh,0.11307489412795396,0.4372350097079999,False,False,0,area,Temporal superior,rh
+3_superiortemporal_volume_lh,0.02426017043295649,0.08830846509933142,True,False,0,volume,Temporal superior,lh
+3_superiortemporal_volume_rh,0.016468909778632128,0.20624813345026027,True,False,0,volume,Temporal superior,rh
+3_superiortemporal_LGI_lh,0.7993139283172527,0.7011865656929426,False,False,0,LGI,Temporal superior,lh
+3_superiortemporal_LGI_rh,0.6919306096532948,0.7989827071722974,False,False,0,LGI,Temporal superior,rh
+4_Hippocampus_volume_lh,0.3203435157997223,0.09107812968166988,False,False,0,volume,Hipocampo,lh
+4_Hippocampus_volume_rh,0.14183927742230495,0.7328012660909149,False,False,0,volume,Hipocampo,rh
+5_parahippocampal_thickness_lh,0.5104317666517767,0.14590617959894486,False,False,0,thickness,Corteza parahipocampal,lh
+5_parahippocampal_thickness_rh,0.6384430558045706,0.23739740819742633,False,False,0,thickness,Corteza parahipocampal,rh
+5_parahippocampal_area_lh,0.0010532307360297695,0.2065197842024643,True,False,1,area,Corteza parahipocampal,lh
+5_parahippocampal_area_rh,0.39771956785451484,0.232266303755717,False,False,0,area,Corteza parahipocampal,rh
+5_parahippocampal_volume_lh,0.0023200850922182117,0.22096747620612853,True,False,1,volume,Corteza parahipocampal,lh
+5_parahippocampal_volume_rh,0.9491958376391901,0.634841265349123,False,False,0,volume,Corteza parahipocampal,rh
+5_parahippocampal_LGI_lh,0.053136307470222764,0.10807926762851769,False,False,0,LGI,Corteza parahipocampal,lh
+5_parahippocampal_LGI_rh,0.5812570803531724,0.9501967185402113,False,False,0,LGI,Corteza parahipocampal,rh
+6_entorhinal_thickness_lh,0.7837908893902379,0.5509805454476353,False,False,0,thickness,Corteza entorrinal,lh
+6_entorhinal_thickness_rh,0.19536854143236887,0.8583603633425124,False,False,0,thickness,Corteza entorrinal,rh
+6_entorhinal_area_lh,0.753843818399634,0.4052555978344326,False,False,0,area,Corteza entorrinal,lh
+6_entorhinal_area_rh,0.5135532598754177,0.5864120608514032,False,False,0,area,Corteza entorrinal,rh
+6_entorhinal_volume_lh,0.9103054263698793,0.4901282880011506,False,False,0,volume,Corteza entorrinal,lh
+6_entorhinal_volume_rh,0.02114236754041322,0.8606609422954351,True,False,0,volume,Corteza entorrinal,rh
+6_entorhinal_LGI_lh,0.5841967790541183,0.5654773648225516,False,False,0,LGI,Corteza entorrinal,lh
+6_entorhinal_LGI_rh,0.1131251360123593,0.6080841524150432,False,False,0,LGI,Corteza entorrinal,rh
+7_precuneus_thickness_lh,0.9438606298711472,0.30839786844151684,False,False,0,thickness,Precúneo,lh
+7_precuneus_thickness_rh,0.03514282277557672,0.8100187729650671,True,False,1,thickness,Precúneo,rh
+7_precuneus_area_lh,0.3810490747004625,0.7411406497567108,False,False,0,area,Precúneo,lh
+7_precuneus_area_rh,0.8786851164550937,0.8728331289654805,False,False,0,area,Precúneo,rh
+7_precuneus_volume_lh,0.9855838660318235,0.8851379740087046,False,False,0,volume,Precúneo,lh
+7_precuneus_volume_rh,0.8361370302707347,0.8191280482866625,False,False,0,volume,Precúneo,rh
+7_precuneus_LGI_lh,0.7173368723072847,0.9132762039933169,False,False,0,LGI,Precúneo,lh
+7_precuneus_LGI_rh,0.3145881429940466,0.7467585637886744,False,False,0,LGI,Precúneo,rh
+8_isthmuscingulate_thickness_lh,0.37245701107074647,0.9382316788316536,False,False,0,thickness,Istmo del cíngulo,lh
+8_isthmuscingulate_thickness_rh,0.04238321747050204,0.05489786645076346,True,False,1,thickness,Istmo del cíngulo,rh
+8_isthmuscingulate_area_lh,0.10975818597726578,0.5207311059257822,False,False,0,area,Istmo del cíngulo,lh
+8_isthmuscingulate_area_rh,0.49995594121124654,0.46114081302836324,False,False,0,area,Istmo del cíngulo,rh
+8_isthmuscingulate_volume_lh,0.32225599528645976,0.9548956772139021,False,False,0,volume,Istmo del cíngulo,lh
+8_isthmuscingulate_volume_rh,0.0817838593030834,0.09835183299724755,False,False,0,volume,Istmo del cíngulo,rh
+8_isthmuscingulate_LGI_lh,0.32583725698449334,0.11687503167865369,False,False,0,LGI,Istmo del cíngulo,lh
+8_isthmuscingulate_LGI_rh,0.8771952408147548,0.14882049965487495,False,False,0,LGI,Istmo del cíngulo,rh
