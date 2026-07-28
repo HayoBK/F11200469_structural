@@ -64,6 +64,7 @@ for nombre, t, pregunta in [
     })
 C3 = pd.read_csv(R / "etapaC3_resultados_asimetria.csv")
 C2 = pd.read_csv(R / "etapaC2_resultados_covarianza.csv")
+A5 = pd.read_csv(R / "etapaA5_resultados_vertexwise.csv")
 for nombre, t, modelo, pregunta in [
     ("C3 · Asimetría L−R (3 grupos)", C3, "A_tres_grupos", "3 grupos"),
     ("C3 · Asimetría L−R (dirigido)", C3, "dirigido_MPPP_vs_Vest", "2 grupos, n=36"),
@@ -78,6 +79,11 @@ inventario.append({
     "Etapa": "C2 · Covarianza estructural", "Diseño": "2 grupos, permutación",
     "Pruebas": len(C2), "p<0,05 nominal": int((C2.p_perm < 0.05).sum()),
     "Sobreviven FDR": int(C2.sobrevive_fdr.sum()),
+})
+inventario.append({
+    "Etapa": "A5 · Vertex-wise whole-brain", "Diseño": "~164.000 vértices × 2 hemis",
+    "Pruebas": len(A5), "p<0,05 nominal": int((A5.n_clusters > 0).sum()),
+    "Sobreviven FDR": int(A5.n_clusters.sum()),
 })
 inventario = pd.DataFrame(inventario)
 print("=== INVENTARIO ===")
@@ -314,11 +320,15 @@ doc.nota(
     "Resultados nulos, pero informativos: acotan el espacio de lo que hay que explicar."
 )
 doc.nota(
-    "<b>6 · Falta la convergencia con el exploratorio.</b> Todo lo anterior es análisis "
-    "por ROI. Mientras el vertex-wise whole-brain no confirme el patrón, la evidencia "
-    "descansa en una sola aproximación metodológica. El <code>-qcache</code> ya está "
-    "completo para grosor, área y volumen; el LGI —justo la medida que importa— requiere "
-    "un <code>mris_preproc</code> propio antes de poder correr <code>mri_glmfit</code>."
+    "<b>6 · La convergencia con el vertex-wise es PARCIAL.</b> El whole-brain replica lo "
+    "esencial —clusters solo en LGI, solo en MPPP vs Vestibular, siempre con MPPP por debajo, "
+    "CWP=0,0002— pero sus focos caen en ROIs de prioridad MEDIA (precentral, ACC caudal, "
+    "occipital lateral) y no en las de prioridad ALTA donde el análisis por ROI daba los "
+    "mayores efectos. Mi lectura es que son instrumentos con sensibilidades distintas: el ROI "
+    "promedia y capta efectos difusos, el vertex-wise busca picos focales. Pero es una "
+    "hipótesis, y un revisor puede leerlo como que ambos análisis se contradicen. "
+    "<b>Hay que adelantarse a esa objeción en el manuscrito</b>, no dejarla flotando.",
+    alerta=True,
 )
 
 doc.escribir(cfg.DOCS / "REPORTE_EXPLORATORIO.html")
