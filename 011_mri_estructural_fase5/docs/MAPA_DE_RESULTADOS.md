@@ -41,6 +41,9 @@ Una fila por prueba estadística. Todas versionadas en GitHub (son agregados, si
 | `etapaB2_resultados_correlaciones.csv` | ROIs prioridad alta × outcomes primarios (N=46). |
 | `etapaB3_resultados_correlaciones.csv` | **Dentro de pacientes** (n≈31) × conducta + Niigata + DHI. |
 | `SINTESIS_disociacion_resultados.csv` | **La doble disociación LGI/grosor**, en una tabla. |
+| `etapaC3_resultados_asimetria.csv` | 68 índices de asimetría L−R × 2 diseños. |
+| `etapaC2_resultados_covarianza.csv` | Covarianza estructural de la red, MPPP vs Vestibular. |
+| `etapaC2_matrices_resultados_por_grupo.csv` | Covarianza media de la red por grupo y medida. |
 | `etapa*_enriquecimiento_resultados.csv` | Test de enriquecimiento por familia de cada etapa. |
 
 **Columnas clave de cualquier tabla de resultados:**
@@ -235,7 +238,39 @@ los meses que dura un MPPP, así que un efecto ahí apunta a predisposición. El
 plástico y responde a procesos adquiridos, así que su asociación con la severidad actual se lee
 como estado. **Dos medidas de la misma corteza contando dos historias distintas.**
 
-## 3.7 Lo que NO se encontró
+## 3.7 Etapas C2 y C3 · dos hipótesis descartadas limpiamente
+
+**C3 · Asimetría hemisférica L−R** — índice AI = (L−R)/(L+R) en 68 combinaciones
+ROI × medida, en los dos diseños. **Cero supervivientes en ambos** (0/68 y 0/68), ninguna
+familia enriquecida (p mínimo de enriquecimiento: 0,21 en LGI). El AI es adimensional, así que
+no se ajusta por eTIV.
+
+> **La lateralización no distingue grupos.** Esto descarta la lectura lateralizada que sugería
+> la literatura VBM en PPPD. Que varios de nuestros hallazgos aparezcan en un solo hemisferio
+> (parahipocampal izq, supramarginal der) refleja dónde está el efecto, no una diferencia en
+> el *grado de asimetría* entre grupos. Es un resultado nulo, pero acota lo que hay que explicar.
+
+**C2 · Covarianza estructural de la red** — matriz de correlación entre las 14 ROIs de
+prioridad alta dentro de cada grupo (91 aristas), residualizada dentro de grupo, contrastada
+por permutación.
+
+| Medida | r medio MPPP | r medio Vestibular | p | p FDR |
+|---|---|---|---|---|
+| LGI | 0,438 | 0,430 | 0,95 | 0,95 |
+| Grosor | 0,231 | 0,289 | 0,61 | 0,82 |
+| Volumen | 0,126 | 0,269 | 0,22 | 0,43 |
+| **Área** | **−0,016** | **0,216** | **0,018** | **0,070** |
+
+> El área es el único contraste con p nominal < 0,05: la covarianza entre las áreas de la red
+> es **prácticamente nula en MPPP** y moderada en el grupo vestibular. **No sobrevive al FDR de
+> las 4 medidas** y no había hipótesis previa sobre covarianza de área. Con n=17 vs 19, una
+> matriz de 91 aristas se estima con mucho ruido. **Es una observación para replicar, no un
+> resultado**, y así hay que reportarla si se menciona.
+
+⚠️ El grupo sano (n=10) se muestra pero **no se contrasta formalmente**: una matriz de
+correlación de 14 variables con n=10 es demasiado inestable para sostener una comparación.
+
+## 3.8 Lo que NO se encontró
 - **Grosor cortical, entre grupos:** nada. Ni una prueba, ninguna familia enriquecida, sin
   consistencia direccional (12/18 es ruido). *Ojo: sí aparece en la etapa B — ver §3.5.*
 - **LGI, correlacionado con conducta o severidad:** nada. El |rho| máximo del índice de
@@ -323,6 +358,13 @@ la otra toda la señal con severidad, y que además ambas apunten a las mismas R
 (supramarginal, temporal superior, ínsula posterior). Que el patrón sea *ortogonal* y no
 redundante es lo que lo hace convincente.
 
+**Los resultados nulos de C2 y C3 refuerzan la historia en vez de debilitarla.** Si el
+fenómeno fuera un artefacto global —peor calidad de imagen en un grupo, un sesgo de
+procesamiento, atrofia difusa— esperaríamos verlo también en la asimetría y en la organización
+de la red. No aparece en ninguna de las dos. El efecto está acotado a una medida (girificación)
+y a un conjunto concreto de regiones, que es exactamente el perfil de un hallazgo específico y
+no el de un sesgo. Un resultado nulo bien hecho vale como control.
+
 **La topografía es coherente y no dispersa.** Las ROIs que sobreviven —ínsula posterior,
 temporal superior, supramarginal, parahipocampal— son el núcleo vestibular cortical y el nodo
 TPJ, no regiones sueltas repartidas por el manto. Y el efecto es mayor en prioridad alta que en
@@ -357,15 +399,16 @@ objeción, pero no la elimina. En el manuscrito reportaría el IC, no el rho pun
 |---|---|
 | ~~**Etapa B** — estructura ↔ conducta~~ | ✅ **corrida** (B1, B2, B3) |
 | ~~**C4** — dimensional dentro de pacientes~~ | ✅ **corrida** (integrada como B3) |
+| ~~**C2** — covarianza estructural entre ROIs~~ | ✅ **corrida** — nulo (ver §3.7) |
+| ~~**C3** — asimetría hemisférica L−R~~ | ✅ **corrida** — nulo (ver §3.7) |
 | **A4** — whole-brain por tabla, masa-univariante | no iniciada |
 | **A5/B3-vertex** — vertex-wise `mri_glmfit` | ⚠️ el LGI necesita `mris_preproc` previo (~1–2 h) |
-| **C2** — covarianza estructural entre ROIs | activado, no corrido |
-| **C3** — asimetría hemisférica L−R | activado, no corrido |
 | **Etapa D** — figuras anatómicas de superficie | falta instalar `surfplot` |
 
-**Prioridad sugerida ahora:** el vertex-wise. Con la disociación en la mano, la pregunta
-concreta es si un mapa whole-brain —que no sabe nada de la lista congelada de ROIs— ilumina
-las mismas regiones. Si lo hace, el argumento deja de depender de una sola aproximación.
+**Prioridad ahora: el vertex-wise** (decisión del PI: dejarlo para la etapa siguiente). Con la
+disociación en la mano, la pregunta concreta es si un mapa whole-brain —que no sabe nada de la
+lista congelada de ROIs— ilumina las mismas regiones. Si lo hace, el argumento deja de depender
+de una sola aproximación metodológica.
 
 ---
 

@@ -62,6 +62,23 @@ for nombre, t, pregunta in [
         "p<0,05 nominal": int((t.p < 0.05).sum()),
         "Sobreviven FDR": int(t.sobrevive_fdr.sum()),
     })
+C3 = pd.read_csv(R / "etapaC3_resultados_asimetria.csv")
+C2 = pd.read_csv(R / "etapaC2_resultados_covarianza.csv")
+for nombre, t, modelo, pregunta in [
+    ("C3 · Asimetría L−R (3 grupos)", C3, "A_tres_grupos", "3 grupos"),
+    ("C3 · Asimetría L−R (dirigido)", C3, "dirigido_MPPP_vs_Vest", "2 grupos, n=36"),
+]:
+    s = t[t.modelo == modelo]
+    inventario.append({
+        "Etapa": nombre, "Diseño": pregunta, "Pruebas": len(s),
+        "p<0,05 nominal": int((s.p_perm < 0.05).sum()),
+        "Sobreviven FDR": int(s.sobrevive_fdr.sum()),
+    })
+inventario.append({
+    "Etapa": "C2 · Covarianza estructural", "Diseño": "2 grupos, permutación",
+    "Pruebas": len(C2), "p<0,05 nominal": int((C2.p_perm < 0.05).sum()),
+    "Sobreviven FDR": int(C2.sobrevive_fdr.sum()),
+})
 inventario = pd.DataFrame(inventario)
 print("=== INVENTARIO ===")
 print(inventario.to_string(index=False))
@@ -287,7 +304,17 @@ doc.nota(
     alerta=True,
 )
 doc.nota(
-    "<b>5 · Falta la convergencia con el exploratorio.</b> Todo lo anterior es análisis "
+    "<b>5 · Dos hipótesis descartadas limpiamente.</b> La <b>asimetría hemisférica</b> (C3) no "
+    "difiere entre grupos en ninguna medida ni en ninguno de los dos diseños: 0 de 68 pruebas, "
+    "ninguna familia enriquecida. Eso descarta la lectura lateralizada que sugería la "
+    "literatura VBM en PPPD. La <b>covarianza estructural</b> (C2) solo muestra una señal en "
+    "área (r = −0,02 en MPPP vs 0,22 en Vestibular, p = 0,018) que <b>no sobrevive al FDR de "
+    "las 4 medidas</b> (p_FDR = 0,070) y no tenía hipótesis previa. Con n=17 vs 19 una matriz "
+    "de 91 aristas se estima con mucho ruido: es una observación para replicar, no un resultado. "
+    "Resultados nulos, pero informativos: acotan el espacio de lo que hay que explicar."
+)
+doc.nota(
+    "<b>6 · Falta la convergencia con el exploratorio.</b> Todo lo anterior es análisis "
     "por ROI. Mientras el vertex-wise whole-brain no confirme el patrón, la evidencia "
     "descansa en una sola aproximación metodológica. El <code>-qcache</code> ya está "
     "completo para grosor, área y volumen; el LGI —justo la medida que importa— requiere "
