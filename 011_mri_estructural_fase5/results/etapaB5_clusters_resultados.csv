@@ -1,0 +1,6 @@
+diseno,outcome,medida,hemi,size_mm2,CWP,max,MNI,anotacion
+nav_global_EntRatio,EntropyRatio_NI,area,rh,413.35,0.00599,-3.6773,"48, 30, 27",rostralmiddlefrontal
+sev_pac_DHI,DHI,thickness,lh,336.17,0.0008,-5.0111,"-52, -22, 33",postcentral
+sev_pac_DHI,DHI,thickness,rh,487.88,0.0002,-5.0364,"53, -9, -3",superiortemporal
+sev_pac_DHI,DHI,thickness,rh,171.53,0.04019,-5.1328,"11, 21, 39",superiorfrontal
+sev_pac_DHI,DHI,volume,rh,321.72,0.0004,-4.1781,"41, -25, 5",transversetemporal

@@ -48,6 +48,12 @@ Una fila por prueba estadística. Todas versionadas en GitHub (son agregados, si
 | `etapaA5_clusters_resultados.csv` | **Los 7 clusters significativos**, con tamaño, CWP y coordenadas MNI. |
 | `etapaA5_composicion_clusters_resultados.csv` | Qué ROIs del atlas DK abarca cada cluster (no solo el pico). |
 | `etapaA5_disenos_resultados.csv` | Los FSGD generados y su N por clase. |
+| `etapaB4a_navegacion_global_resultados_correlaciones.csv` | ROIs media + subestructuras × CSE/Entropy-Ratio (N=46). |
+| `etapaB4b_severidad_pacientes_resultados_correlaciones.csv` | **Todas las ROIs × Niigata/DHI dentro de pacientes** — aquí están las 20 supervivientes. |
+| `etapaB4c_navegacion_pacientes_resultados_correlaciones.csv` | Todas las ROIs × CSE/Entropy-Ratio en pacientes. |
+| `etapaB4_por_medida_resultados.csv` | **La concentración por medida** — grosor 21, volumen 0, LGI 0. |
+| `etapaB5_resultados_vertexwise_correlaciones.csv` | Vertex-wise de los 4 outcomes × 4 medidas × 2 hemis. |
+| `etapaB5_clusters_resultados.csv` | Los 5 clusters de correlación, con coordenadas MNI. |
 | `etapa*_enriquecimiento_resultados.csv` | Test de enriquecimiento por familia de cada etapa. |
 
 **Columnas clave de cualquier tabla de resultados:**
@@ -70,7 +76,9 @@ Una fila por prueba estadística. Todas versionadas en GitHub (son agregados, si
 | `figs/etapaC1/` | Índices de red: violines y forest comparando ambos diseños. |
 | `figs/etapaB/` | Scatter estructura↔conducta con recta por grupo, heatmaps rho. |
 | `figs/etapaC2/`, `figs/etapaC3/` | Matrices de covarianza; forest de asimetría. |
-| `figs/etapaD/` | 🔴 **`superficie_LGI_dirigido`** — los mapas de superficie con los clusters. |
+| `figs/etapaB4/` | Scatter de las correlaciones más fuertes; heatmap subestructuras × severidad. |
+| `figs/etapaB5/` | 🔴 **`superficie_thickness_sev_pac_DHI`** — el mapa de grosor↔severidad. |
+| `figs/etapaD/` | 🔴 **`superficie_LGI_dirigido`** — los mapas de superficie con los clusters de grupo. |
 | `figs/sintesis/` | 🔴 **`forest_LGI_todas_las_rois`** — la otra figura candidata a principal. |
 
 ## 1.4 Código — `src/` y `notebooks/`
@@ -107,10 +115,12 @@ $V notebooks/etapaB_estructura_conducta.py                # ~8 min (bootstrap)
 $V notebooks/etapaA5_vertexwise_preparar.py               # ~4 min (mris_preproc del LGI)
 $V notebooks/etapaA5_vertexwise_glm.py
 $V notebooks/etapaD_figuras_superficie.py
+$V notebooks/etapaB4_barrido_completo.py                  # ~25 min (bootstrap de 976 correlaciones)
+$V notebooks/etapaB5_vertexwise_correlaciones.py          # ~10 min
 $V notebooks/sintesis.py                                  # cierra el documento
 open docs/REPORTE_EXPLORATORIO.html
 ```
-Corre entero en ~15 minutos. Es determinista: la semilla es `11200469`, así que dos
+Corre entero en ~50 minutos. Es determinista: la semilla es `11200469`, así que dos
 ejecuciones dan exactamente los mismos números.
 
 ---
@@ -329,7 +339,81 @@ análisis por ROI fueron precisamente **`precentral` izq (d = −1,04) y `postce
 (d = −1,10)**, ambos en LGI. El cluster izquierdo de 606–786 mm² cae justo ahí. Eso no es
 coincidencia: es la misma señal vista con dos instrumentos.
 
-## 3.9 Lo que NO se encontró
+## 3.9 Etapas B4 y B5 · el barrido completo y su vertex-wise
+
+**B4** cierra el hueco: ROIs de prioridad **media** y **subestructuras** contra los cuatro
+outcomes, en tres contextos. **976 correlaciones nuevas, 22 sobreviven.**
+
+### La concentración por medida es demoledora
+
+| Medida | Pruebas | p<0,05 | **Sobreviven FDR** | \|rho\| máx |
+|---|---|---|---|---|
+| **Grosor** | 164 | 40 | **21** | **0,702** |
+| Área | 164 | 8 | 1 | 0,491 |
+| Volumen | 484 | 33 | **0** | 0,551 |
+| **LGI** | 164 | 2 | **0** | 0,421 |
+
+Con 484 pruebas, el volumen no produce **ni una**. El LGI tampoco. El grosor, con 164, produce
+21. Esto ya no es una tendencia: es la disociación de §3.6 confirmada con cuatro veces más datos.
+
+### Las 10 correlaciones más fuertes (todas grosor, dentro de pacientes)
+
+| ROI | Hemi | Outcome | rho | p FDR |
+|---|---|---|---|---|
+| Giro supramarginal | rh | **Niigata** | **−0,70** | 0,0010 |
+| Giro supramarginal | rh | DHI | −0,69 | 0,0012 |
+| **Prefrontal dorsolateral** | rh | DHI | **−0,68** | 0,0012 |
+| **Postcentral** | lh | DHI | **−0,68** | 0,0012 |
+| Temporal superior | rh | DHI | −0,65 | 0,0018 |
+| Postcentral | lh | Niigata | −0,59 | 0,0145 |
+| **Occipital lateral** | rh | DHI | −0,59 | 0,0081 |
+| Temporal superior | rh | Niigata | −0,57 | 0,0163 |
+| **Parietal inferior** | lh | DHI | −0,56 | 0,0115 |
+| **Cingulada anterior** | lh | DHI | −0,55 | 0,0142 |
+
+En negrita, las ROIs que **no** se habían analizado antes (prioridad media). La señal no estaba
+confinada a las ROIs de prioridad alta: es una red extendida de adelgazamiento asociado a
+severidad.
+
+**Navegación:** mucho más débil. Solo 2 supervivientes en 612 pruebas — ínsula posterior izq
+(grosor ↔ Entropy-Ratio, rho = +0,60) y DLPFC der (área ↔ Entropy-Ratio, rho = −0,48).
+**El eje conductual es mucho menos fuerte que el clínico.**
+
+### B5 · vertex-wise de las correlaciones — 5 clusters
+
+| Outcome | Medida | Hemi | Tamaño | CWP | Región |
+|---|---|---|---|---|---|
+| **DHI** | grosor | rh | **488 mm²** | **0,0002** | **temporal superior** |
+| **DHI** | grosor | lh | 336 mm² | 0,0008 | **postcentral** |
+| DHI | volumen | rh | 322 mm² | 0,0004 | transverso temporal |
+| DHI | grosor | rh | 172 mm² | 0,040 | superior frontal |
+| Entropy-Ratio | área | rh | 413 mm² | 0,006 | **rostral middle frontal (DLPFC)** |
+
+### ✅ Tres convergencias DIRECTAS entre ROI y vertex-wise
+
+Esto es lo más importante de la etapa, y contrasta con lo que pasó en A5:
+
+| Hallazgo | Por ROI | Vertex-wise |
+|---|---|---|
+| **Temporal superior rh · grosor ↔ DHI** | rho = −0,65, p_FDR = 0,0018 | 488 mm², CWP = 0,0002 |
+| **Postcentral lh · grosor ↔ DHI** | rho = −0,68, p_FDR = 0,0012 | 336 mm², CWP = 0,0008 |
+| **DLPFC rh · área ↔ Entropy-Ratio** | rho = −0,48, p_FDR = 0,027 | 413 mm², CWP = 0,006 |
+
+**El eje grosor↔severidad converge entre métodos; el eje LGI↔grupo no lo hacía.** Es una
+diferencia real entre los dos hallazgos del trabajo, y refuerza que el de grosor es el más
+sólido: dos aproximaciones independientes señalan la misma región con la misma dirección.
+
+⚠️ **Niigata no produce ningún cluster** pese a tener el rho más alto de todo el análisis
+(−0,70 en supramarginal). Coherente con la lectura de §3.8: el efecto por ROI es difuso —
+un desplazamiento moderado de toda la circunvolución— sin un pico focal que supere p<0,001 en
+vértices contiguos. DHI, con rho algo menor, sí tiene focos.
+
+⚠️ **5 de 83 correlaciones con p<0,05 tienen signo incoherente con sus intra-grupo** (en la
+etapa B eran 0 de 19). Con más pruebas empiezan a aparecer correlaciones que son artefacto de
+la separación entre grupos. Están marcadas en la columna `coherente` y **no deben interpretarse
+como relaciones individuales**.
+
+## 3.10 Lo que NO se encontró
 - **Grosor cortical, entre grupos:** nada. Ni una prueba, ninguna familia enriquecida, sin
   consistencia direccional (12/18 es ruido). *Ojo: sí aparece en la etapa B — ver §3.5.*
 - **LGI, correlacionado con conducta o severidad:** nada. El |rho| máximo del índice de
@@ -478,7 +562,8 @@ objeción, pero no la elimina. En el manuscrito reportaría el IC, no el rho pun
 | ~~**A5** — vertex-wise `mri_glmfit`~~ | ✅ **corrida** — 7 clusters, todos LGI (ver §3.8) |
 | ~~**Etapa D** — figuras de superficie~~ | ✅ **corrida** con nilearn (no hizo falta `surfplot`) |
 | **A4** — whole-brain por tabla, masa-univariante | no iniciada · **el vertex-wise la vuelve casi redundante** |
-| **B3-vertex** — vertex-wise con regresor continuo (CSE, Niigata) | no iniciada · **el pendiente más interesante** |
+| ~~**B4** — barrido completo (ROIs media + subestructuras)~~ | ✅ **corrida** — 22 supervivientes (§3.9) |
+| ~~**B5** — vertex-wise con regresor continuo~~ | ✅ **corrida** — 5 clusters, 3 convergencias (§3.9) |
 
 **Prioridad ahora: el vertex-wise de la Etapa B.** Sabemos que el grosor sigue a la severidad
 dentro de pacientes (§3.5) y que el LGI tiene focos en precentral y ACC (§3.8). Falta preguntar
