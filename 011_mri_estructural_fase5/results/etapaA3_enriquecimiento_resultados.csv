@@ -1,0 +1,4 @@
+familia,n_pruebas,n_efectivo,n_observado_p<0.05,esperado_por_azar,p_enriquecimiento
+hipocampo_posterior,18,46,1,0.898,0.35732133933033483
+amigdala,20,46,1,0.9835,0.39280359820089955
+talamo_anterior,8,46,0,0.3775,1.0

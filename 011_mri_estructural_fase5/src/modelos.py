@@ -159,11 +159,18 @@ def _bca(
 
 
 def construir_formula(
-    y: str, covariables: list[str], grupo: str = "Grupo", ajusta_etiv: bool = False
+    y: str, covariables: list[str], grupo: str = "Grupo", ajusta_etiv: bool = False,
+    referencia: str = "Voluntario Sano",
 ) -> str:
-    """Fórmula patsy. Las covariables categóricas se envuelven en C()."""
+    """Fórmula patsy. Las covariables categóricas se envuelven en C().
+
+    `referencia` fija el nivel base del factor de grupo. En el análisis de 3 grupos
+    es "Voluntario Sano"; en el contraste dirigido MPPP-vs-Vestibular pasa a ser
+    "Vestibular", de modo que el coeficiente de grupo se lee directamente como
+    "MPPP respecto de Vestibular".
+    """
     CATEGORICAS = {"Genero", "Grupo"}
-    terminos = [f"C({grupo}, Treatment(reference='Voluntario Sano'))"]
+    terminos = [f"C({grupo}, Treatment(reference='{referencia}'))"]
     for c in covariables:
         terminos.append(f"C({c})" if c in CATEGORICAS else c)
     if ajusta_etiv:
@@ -178,6 +185,7 @@ def ancova(
     ajusta_etiv: bool = False,
     grupo: str = "Grupo",
     contrastes: list[tuple[str, str]] | None = None,
+    referencia: str = "Voluntario Sano",
     n_perm: int = 10_000,
     n_boot: int = 10_000,
     seed: int = SEED,
@@ -191,7 +199,7 @@ def ancova(
     cols = [y, grupo] + covariables + (["eTIV"] if ajusta_etiv else [])
     d = df[cols].dropna().copy()
 
-    formula = construir_formula(y, covariables, grupo, ajusta_etiv)
+    formula = construir_formula(y, covariables, grupo, ajusta_etiv, referencia)
     modelo = sm.OLS.from_formula(formula, data=d).fit()
 
     # --- matrices de diseño: completa y reducida (sin el efecto de grupo) ---
@@ -245,7 +253,8 @@ def ancova(
 
     # --- diagnósticos y robustez no-paramétrica ---
     muestras = [d.loc[d[grupo] == g, y].to_numpy() for g in d[grupo].unique()]
-    p_kw = float(stats.kruskal(*muestras).pvalue)
+    # Con 2 grupos, Kruskal-Wallis equivale a Mann-Whitney: sirve igual de robustez.
+    p_kw = float(stats.kruskal(*muestras).pvalue) if len(muestras) >= 2 else np.nan
     shapiro_p = float(stats.shapiro(modelo.resid).pvalue) if len(d) >= 3 else np.nan
     resid_por_grupo = [modelo.resid[d[grupo].to_numpy() == g] for g in d[grupo].unique()]
     levene_p = float(stats.levene(*resid_por_grupo).pvalue)
