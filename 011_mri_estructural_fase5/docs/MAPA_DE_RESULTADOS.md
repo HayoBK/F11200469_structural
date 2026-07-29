@@ -45,6 +45,7 @@ Todo vive en `~/Repos/F11200469_structural/011_mri_estructural_fase5/`
 | 🔴 **El documento exploratorio completo** | `docs/REPORTE_EXPLORATORIO.html` | **Ábrelo en el navegador.** Todo el análisis, etapa por etapa: método, N, tablas completas y todas las figuras candidatas. Es el archivo que pediste para elegir figuras. **No está en GitHub** (2,4 MB, se regenera con un comando). |
 | El plan de análisis | `docs/PLAN_ANALISIS_FASE5.md` | Qué se iba a hacer y por qué, con las 7 decisiones que tomaste. |
 | Este mapa | `docs/MAPA_DE_RESULTADOS.md` | Índice + disquisiciones. |
+| 📄 **Bosquejo en Word editable** | `docs/PAPER_BOSQUEJO.docx` (+ copia en OneDrive) | El artículo maquetado con las figuras insertadas y recuadros que marcan las que faltan. Regenerable con `notebooks/generar_word_paper.py`. **No versionado** (política de PII). |
 | 🔴 **Para retomar en otra sesión** | `docs/PROMPTS_PARA_RETOMAR.md` | Dos prompts listos para pegar: (A) retomar/extender el análisis, (B) generar las figuras anatómicas con FreeSurfer. |
 
 ## 1.2 Tablas de resultados — `results/`
