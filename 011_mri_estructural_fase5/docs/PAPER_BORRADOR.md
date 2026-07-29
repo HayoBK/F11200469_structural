@@ -1,4 +1,4 @@
-# Girificación cortical reducida como marcador de rasgo y adelgazamiento cortical como marcador de estado en el Mareo Postural Perceptual Persistente
+Esper# Girificación cortical reducida como marcador de rasgo y adelgazamiento cortical como marcador de estado en el Mareo Postural Perceptual Persistente
 
 ### Un estudio de morfometría estructural con FreeSurfer
 **FONDECYT de Iniciación 11200469 · Fase 011 · Borrador metodológico, 2026-07-28**
