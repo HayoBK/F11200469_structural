@@ -174,9 +174,8 @@ parrafo("FONDECYT de Iniciación 11200469 · Fase 011 · Bosquejo editable, 2026
         size=10, color=TINTA2)
 
 nota("CÓMO USAR ESTE DOCUMENTO. Es un bosquejo editable, no un manuscrito final. "
-     "Las figuras insertadas ya están generadas y son definitivas. Los recuadros naranjas "
-     "marcan las figuras que faltan por producir, con la instrucción de cómo hacerlas: el "
-     "prompt completo está en docs/PROMPTS_PARA_RETOMAR.md (prompt B). "
+     "Las seis figuras están generadas y son definitivas; las de superficie se "
+     "renderizaron con FreeSurfer. "
      "La sección de Métodos aquí es una versión abreviada; la versión exhaustiva, con la "
      "justificación de cada decisión analítica, está en docs/PAPER_BORRADOR.md §2. "
      "Todos los números provienen de results/ y son trazables.")
@@ -244,14 +243,15 @@ parrafo("Se preinscribió una lista de 19 regiones de interés de la red de nave
         "visuoespacial-vestibular, congelada antes de examinar ningún resultado, y se "
         "preespecificó el plan estadístico completo.")
 
-hueco_figura(
-    1, "Mapa anatómico de la red de interés",
-    "Las 19 regiones a priori pintadas sobre la superficie inflada de fsaverage, coloreadas "
-    "por prioridad (alta / media), en vistas lateral y medial de ambos hemisferios. Es la "
-    "figura que permite al lector situar la hipótesis ANTES de ver resultados; hoy no existe "
-    "ninguna equivalente y es la que más falta.",
-    "FreeSurfer + etiquetas de ?h.aparc.DKTatlas.annot; la lista congelada está en "
-    "src/rois.py (ROIS_ALTA y ROIS_MEDIA). Ver prompt B en docs/PROMPTS_PARA_RETOMAR.md.")
+figura(FIGS / "etapaD2_freesurfer" / "fig1_mapa_red_DCNN.png", 1,
+       "La red de navegación visuoespacial-vestibular estudiada.",
+       "Las regiones de interés congeladas a priori, sobre la superficie inflada de "
+       "fsaverage. Naranja: prioridad alta (ínsula posterior, supramarginal, temporal "
+       "superior, parahipocampal, entorrinal, precúneo, istmo del cíngulo). Azul: prioridad "
+       "media. Las regiones subcorticales incluidas en la hipótesis (hipocampo, tálamo, "
+       "amígdala, cerebelo) no tienen representación en superficie. Renderizado con "
+       "FreeSurfer; el dibujo usa Desikan-Killiany, cuyos límites son casi idénticos a los "
+       "de DKT empleado en el análisis (r = 0,997).")
 
 doc.add_page_break()
 
@@ -385,22 +385,13 @@ parrafo("El barrido whole-brain, aunque no declara ninguna región, muestra dón
         "azar). En z-scores promediados sobre las regiones de prioridad alta, el gradiente es "
         "MPPP −0,28 · Sano +0,04 · Vestibular +0,24.")
 
-figura(FIGS / "etapaD" / "superficie_LGI_dirigido.png", 3,
+figura(FIGS / "etapaD2_freesurfer" / "fig2_clusters_LGI.png", 3,
        "Clusters de girificación corregidos por comparaciones múltiples.",
        "Análisis vertex-wise sobre ~164.000 vértices por hemisferio, corregido por clusters "
        "(Monte Carlo, umbral p < 0,001, CWP < 0,05, corregido por dos hemisferios). Azul = "
        "menor en MPPP. Se muestra únicamente el mapa enmascarado por los clusters que "
        "sobreviven. Un procedimiento que desconoce la lista preinscrita de regiones converge "
        "en la misma medida, dirección y contraste.")
-
-hueco_figura(
-    3, "Versión de publicación de los clusters de girificación (sustituye a la Figura 3)",
-    "Los mismos clusters, renderizados con FreeSurfer en seis vistas (lateral, medial y "
-    "dorsal de cada hemisferio), con barra de color integrada y anotación del tamaño y CWP "
-    "de cada cluster. La versión actual, hecha con nilearn, es correcta pero de calidad "
-    "funcional, no de publicación.",
-    "freeview en modo batch sobre ~/FS_FONDECYT/glm/pial_lgi/dirigido/. Ver prompt B en "
-    "docs/PROMPTS_PARA_RETOMAR.md.")
 
 titulo("3.3 Asociación con conducta y clínica: solo el grosor", 2)
 parrafo("De 1.372 correlaciones, 33 sobrevivieron a la corrección. Su distribución por medida "
@@ -445,25 +436,21 @@ nota("CAUTELA OBLIGATORIA. Niigata y DHI correlacionan entre sí ρ = 0,72: mide
      "clínica NO correlaciona con el desempeño en navegación (CSE–Niigata ρ = 0,26, p = 0,17), "
      "de modo que el eje clínico y el conductual sí son dimensiones independientes.")
 
-figura(FIGS / "etapaB5" / "superficie_thickness_sev_pac_DHI.png", 5,
+figura(FIGS / "etapaD2_freesurfer" / "fig3_clusters_grosor_DHI.png", 5,
        "Clusters de asociación entre grosor cortical y severidad.",
        "Vertex-wise con la severidad como regresor continuo, dentro de pacientes. Azul = "
        "correlación negativa. Tres regiones coinciden exactamente con el análisis por región: "
        "temporal superior derecho (488 mm², CWP = 0,0002), postcentral izquierdo (336 mm², "
        "CWP = 0,0008) y prefrontal dorsolateral derecho.")
 
-hueco_figura(
-    5, "Versión de publicación de los clusters de grosor (sustituye a la Figura 5)",
-    "Los mismos clusters con render de FreeSurfer, seis vistas y barra de color integrada.",
-    "freeview sobre ~/FS_FONDECYT/glm/thickness/sev_pac_DHI/. Ver prompt B.")
-
-hueco_figura(
-    6, "Panel resumen de la doble disociación",
-    "Una sola figura de dos filas: arriba los clusters de LGI (diferencia entre grupos), "
-    "abajo los de grosor (correlación con severidad), de modo que se vea de un vistazo que "
-    "son fenómenos distintos en regiones parcialmente solapadas. Es la figura que cuenta la "
-    "historia del artículo y probablemente la candidata a figura principal.",
-    "Montaje en Python de los dos renders de FreeSurfer. Ver prompt B, figura 4.")
+figura(FIGS / "etapaD2_freesurfer" / "fig4_doble_disociacion.png", 6,
+       "La doble disociación, en una sola imagen.",
+       "Arriba: los clusters de girificación que separan MPPP de pacientes vestibulares "
+       "(vista dorsal, donde mejor se aprecia el cúmulo precentral izquierdo). Abajo: los "
+       "clusters donde el grosor cortical escala con la severidad sintomática (vista "
+       "lateral). Dos medidas de la misma corteza, en regiones parcialmente solapadas, "
+       "capturando fenómenos distintos: rasgo y estado. Candidata a figura principal del "
+       "manuscrito.")
 
 titulo("3.4 Robustez", 2)
 tabla(["Comprobación", "Resultado"],
@@ -551,20 +538,22 @@ doc.add_page_break()
 # %% ── APÉNDICE ─────────────────────────────────────────────────────────────
 titulo("Apéndice · Estado de las figuras", 1)
 tabla(["Figura", "Estado", "Archivo o instrucción"],
-      [["1 · Mapa anatómico de la red", "▢ POR GENERAR", "prompt B, figura 3"],
+      [["1 · Mapa anatómico de la red", "✓ FreeSurfer",
+        "figs/etapaD2_freesurfer/fig1_mapa_red_DCNN.pdf"],
        ["2 · Forest de girificación", "✓ lista", "figs/sintesis/forest_LGI_todas_las_rois.pdf"],
-       ["3 · Clusters de LGI", "✓ provisional", "figs/etapaD/superficie_LGI_dirigido.pdf"],
-       ["3-bis · Versión de publicación", "▢ POR GENERAR", "prompt B, figura 1"],
+       ["3 · Clusters de LGI", "✓ FreeSurfer",
+        "figs/etapaD2_freesurfer/fig2_clusters_LGI.pdf"],
        ["4 · Dispersión grosor–Niigata", "✓ lista",
         "figs/etapaB4/scatter_2_supramarginal_thickness_rh_Niigata.pdf"],
-       ["5 · Clusters de grosor", "✓ provisional",
-        "figs/etapaB5/superficie_thickness_sev_pac_DHI.pdf"],
-       ["5-bis · Versión de publicación", "▢ POR GENERAR", "prompt B, figura 2"],
-       ["6 · Panel de la disociación", "▢ POR GENERAR", "prompt B, figura 4"]])
+       ["5 · Clusters de grosor", "✓ FreeSurfer",
+        "figs/etapaD2_freesurfer/fig3_clusters_grosor_DHI.pdf"],
+       ["6 · Panel de la disociación", "✓ FreeSurfer",
+        "figs/etapaD2_freesurfer/fig4_doble_disociacion.pdf"]])
 
-parrafo("Las figuras marcadas ▢ requieren FreeSurfer y están especificadas en "
-        "docs/PROMPTS_PARA_RETOMAR.md (prompt B), con las rutas de los mapas ya calculados y "
-        "los clusters concretos con su tamaño y CWP.", size=9.5, color=TINTA2)
+parrafo("Las seis figuras están generadas. Las de superficie se renderizaron con freeview en "
+        "modo batch (notebooks/etapaD2_figuras_freesurfer.py); las versiones previas hechas "
+        "con nilearn se conservan en figs/etapaD/ y figs/etapaB5/ como respaldo. Todas "
+        "existen en PNG a 200 dpi y PDF vectorial.", size=9.5, color=TINTA2)
 
 parrafo("Documento generado automáticamente desde notebooks/generar_word_paper.py. "
         "Regenerable; las ediciones manuales sobre el .docx se pierden al regenerar. "

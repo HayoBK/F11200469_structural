@@ -670,14 +670,22 @@ evita el troceo. Título propuesto:
 
 ## 5.2 Figuras propuestas (todas ya generadas)
 
+**Todas generadas.** Las de superficie se renderizaron con `freeview` en modo batch
+(`notebooks/etapaD2_figuras_freesurfer.py`); las versiones previas hechas con nilearn se
+conservan en `figs/etapaD/` y `figs/etapaB5/` como respaldo.
+
 | # | Figura | Archivo |
 |---|---|---|
-| **1** | Forest de las 32 ROIs en LGI, contraste dirigido — 31/32 en la misma dirección | `figs/sintesis/forest_LGI_todas_las_rois.pdf` |
-| **2** | Mapas de superficie de los clusters de LGI | `figs/etapaD/superficie_LGI_dirigido.pdf` |
-| **3** | Dispersión grosor supramarginal ↔ Niigata, con recta por grupo | `figs/etapaB4/scatter_2_supramarginal_thickness_rh_Niigata.pdf` |
-| **4** | Mapas de superficie de grosor ↔ DHI | `figs/etapaB5/superficie_thickness_sev_pac_DHI.pdf` |
-| **5** | Tabla-figura de la doble disociación | `results/SINTESIS_disociacion_resultados.csv` |
+| **1** | Mapa anatómico de la red — sitúa la hipótesis antes de los resultados | `figs/etapaD2_freesurfer/fig1_mapa_red_DCNN.pdf` |
+| **2** | Forest de las 32 ROIs en LGI — 31/32 en la misma dirección | `figs/sintesis/forest_LGI_todas_las_rois.pdf` |
+| **3** | Clusters de LGI en superficie, 6 vistas | `figs/etapaD2_freesurfer/fig2_clusters_LGI.pdf` |
+| **4** | Dispersión grosor supramarginal ↔ Niigata, recta por grupo | `figs/etapaB4/scatter_2_supramarginal_thickness_rh_Niigata.pdf` |
+| **5** | Clusters de grosor ↔ severidad, 6 vistas | `figs/etapaD2_freesurfer/fig3_clusters_grosor_DHI.pdf` |
+| **6** | 🔴 **Panel de la doble disociación — candidata a figura principal** | `figs/etapaD2_freesurfer/fig4_doble_disociacion.pdf` |
 | Supl. | Comparación de diseños (r = 0,99), leave-one-out, réplica entre atlas | `figs/etapaAD/`, `figs/etapaR/` |
+
+**Bosquejo maquetado:** `docs/PAPER_BOSQUEJO.docx` (+ copia en OneDrive) tiene el artículo con
+las seis figuras insertadas en su lugar. Regenerable con `notebooks/generar_word_paper.py`.
 
 ## 5.3 Orden narrativo recomendado
 

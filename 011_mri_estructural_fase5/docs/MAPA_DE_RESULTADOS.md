@@ -105,7 +105,8 @@ Una fila por prueba estadística. Todas versionadas en GitHub (son agregados, si
 | `figs/etapaC2/`, `figs/etapaC3/` | Matrices de covarianza; forest de asimetría. |
 | `figs/etapaB4/` | Scatter de las correlaciones más fuertes; heatmap subestructuras × severidad. |
 | `figs/etapaB5/` | 🔴 **`superficie_thickness_sev_pac_DHI`** — el mapa de grosor↔severidad. |
-| `figs/etapaD/` | 🔴 **`superficie_LGI_dirigido`** — los mapas de superficie con los clusters de grupo. |
+| `figs/etapaD/` | Mapas de superficie con nilearn (respaldo de los de FreeSurfer). |
+| **`figs/etapaD2_freesurfer/`** | 🔴🔴 **Las figuras de publicación**, renderizadas con freeview: mapa anatómico de la red, clusters de LGI, clusters de grosor↔severidad y **el panel de la doble disociación**. |
 | `figs/sintesis/` | 🔴 **`forest_LGI_todas_las_rois`** — la otra figura candidata a principal. |
 
 ## 1.4 Código — `src/` y `notebooks/`
@@ -623,7 +624,8 @@ objeción, pero no la elimina. En el manuscrito reportaría el IC, no el rho pun
 | ~~**C2** — covarianza estructural entre ROIs~~ | ✅ **corrida** — nulo (ver §3.7) |
 | ~~**C3** — asimetría hemisférica L−R~~ | ✅ **corrida** — nulo (ver §3.7) |
 | ~~**A5** — vertex-wise `mri_glmfit`~~ | ✅ **corrida** — 7 clusters, todos LGI (ver §3.8) |
-| ~~**Etapa D** — figuras de superficie~~ | ✅ **corrida** con nilearn (no hizo falta `surfplot`) |
+| ~~**Etapa D** — figuras de superficie~~ | ✅ nilearn (respaldo) |
+| ~~**Etapa D2** — figuras anatómicas de publicación~~ | ✅ **corrida** con freeview en modo batch — 4 figuras |
 | ~~**A4** — whole-brain por tabla~~ | ✅ **corrida** — 0 de 2.268, pero el LGI acumula 5,3× el azar |
 | ~~**R1/R8** — robustez (atlas y leave-one-out)~~ | ✅ **corridas** — ver §3.11 |
 | ~~**B4** — barrido completo (ROIs media + subestructuras)~~ | ✅ **corrida** — 22 supervivientes (§3.9) |
